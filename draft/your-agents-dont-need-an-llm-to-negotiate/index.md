@@ -1,7 +1,7 @@
 ---
 title: "Your agents don't need an LLM to negotiate"
 date: "2026-10-06"
-description: "Three agents decide which of them takes a job, and nothing in the program calls a model. It explains the protocol, and what doesn't survive a restart."
+description: "A manager hands a job to one of three workers, and nothing in the program calls a model. It explains the protocol, and what doesn't survive a restart."
 authors:
   - "mauro-mura"
 image: "cover.jpg"
@@ -18,7 +18,7 @@ costs a network round trip and a line on a bill for every decision.
 
 For the narrow case of handing work to whoever should do it, there's a protocol that predates
 all of this. It's called Contract Net, and it's small enough to read in an afternoon.
-[Agenor](https://github.com/mauro-mura/agenor) ships it. The example below splits a job across three agents in a single JVM, and its imports
+[Agenor](https://github.com/mauro-mura/agenor) ships it. The example below has a manager hand a job to one of three workers in a single JVM, and its imports
 contain nothing from any model provider.
 
 ## The shape of it
