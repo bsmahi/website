@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-03T06:38:39Z",
+  "generatedAt" : "2026-10-04T07:02:36Z",
   "source" : "iCal feeds published by the JUGs themselves (data/jugs.yaml `calendar`) and Meetup's iCal export for the groups that use it; venues from the feed's LOCATION or the schema.org JSON-LD on the event page -- see scripts/fetch/JugEvents.java",
   "groups" : [ {
     "slug" : "almaty-java-user-group",
@@ -52,6 +52,12 @@
       "city" : "Arnhem",
       "online" : false
     } ]
+  }, {
+    "slug" : "Athens-Java-User-Group",
+    "name" : "Athens Java User Group",
+    "jug" : "AthensJUG",
+    "source" : "meetup",
+    "error" : "Meetup group not found (404) -- the entry in GlobalWWJugs is out of date"
   }, {
     "slug" : "atlantajug",
     "name" : "Atlanta Java Users Group",
@@ -119,6 +125,12 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/brabant-jug/",
     "events" : [ ]
+  }, {
+    "slug" : "brno-java",
+    "name" : "Brno Java User Group",
+    "jug" : "BrnoJUG",
+    "source" : "meetup",
+    "error" : "Meetup group not found (404) -- the entry in GlobalWWJugs is out of date"
   }, {
     "slug" : "brujug",
     "name" : "BruJUG - The Brussels Java User Group",
@@ -915,6 +927,12 @@
     "url" : "https://www.meetup.com/Peru-Java-User-Group/",
     "events" : [ ]
   }, {
+    "slug" : "prague-java",
+    "name" : "Prague Java User Group",
+    "jug" : "PragueJUG",
+    "source" : "meetup",
+    "error" : "Meetup group not found (404) -- the entry in GlobalWWJugs is out of date"
+  }, {
     "slug" : "rotterdamjug",
     "name" : "RotterdamJUG (Java User Group)",
     "jug" : "RotterdamJUG",
@@ -986,6 +1004,21 @@
       "endTime" : "2026-10-13T20:30:00-04:00",
       "venue" : "Intuit",
       "city" : "Toronto",
+      "online" : false
+    } ]
+  }, {
+    "slug" : "triangle-java-users-group",
+    "name" : "Triangle Java Users Group (TriJUG)",
+    "jug" : "TriangleJUG",
+    "source" : "meetup",
+    "url" : "https://www.meetup.com/triangle-java-users-group/",
+    "events" : [ {
+      "title" : "7 Ways You Can Build an Amazing Dev Career in the AI Era",
+      "url" : "https://www.meetup.com/triangle-java-users-group/events/316641269/",
+      "startTime" : "2026-10-07T17:30:00-04:00",
+      "endTime" : "2026-10-07T19:30:00-04:00",
+      "venue" : "3000 Centregreen Way",
+      "city" : "Cary",
       "online" : false
     } ]
   }, {

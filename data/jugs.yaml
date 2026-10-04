@@ -110,6 +110,15 @@
   latitude: 51.1694
   longitude: 71.4491
   source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/AstanaJUG.md
+- slug: AthensJUG
+  name: Athens Java User Group
+  country: Greece
+  website: https://www.meetup.com/Athens-Java-User-Group/
+  meetup_slug: Athens-Java-User-Group
+  meetup_url: https://www.meetup.com/Athens-Java-User-Group/
+  latitude: 37.9838
+  longitude: 23.7275
+  source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/AthensJUG.md
 - slug: AtlantaJUG
   name: Atlanta JUG
   country: United States
@@ -263,7 +272,9 @@
 - slug: BrnoJUG
   name: Brno Java User Group
   country: Czechia
-  website: https://meetup.com/brno-java-meetup/
+  website: https://www.brjug.cz/
+  meetup_slug: brno-java
+  meetup_url: https://www.meetup.com/brno-java/
   latitude: 49.1951
   longitude: 16.6068
   source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/BrnoJUG.md
@@ -1120,7 +1131,7 @@
   country: Germany
   website: https://www.jug-muenster.de/
   calendar: https://www.meetup.com/de-DE/java-usergroup-munster/events/calendar/
-  founded_date: 13.12.2008
+  founded_date: '2008-12-13'
   contact: Thomas Kruse ; Gerrit Grunwald
   email: han.solo.gg@gmail.com
   latitude: 51.9607
@@ -1275,7 +1286,7 @@
   country: Switzerland
   website: http://www.jug.ch
   calendar: http://www.jug.ch
-  founded_date: 18.06.1997
+  founded_date: '1997-06-18'
   contact: Marcus Fihlon ; Ursula Burri
   email: info@jug.ch
   latitude: 46.8182
@@ -1861,8 +1872,8 @@
   meetup_slug: nijmegen-java-user-group
   meetup_url: https://www.meetup.com/nijmegen-java-user-group/
   calendar: https://www.meetup.com/nijmegen-java-user-group/events/ical/
-  latitude: 51.8429393
-  longitude: 5.7507568
+  latitude: 5.7507568
+  longitude: 51.8429393
   source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/NijmegenJUG.md
 - slug: NisJUG
   name: Niš Java User Group
@@ -1980,6 +1991,8 @@
   website: https://www.parisjug.org/xwiki/bin/view/Main/WebHome
   twitter: parisjug
   founded_date: '2008-02-02'
+  latitude: 2.2944813
+  longitude: 48.8583701
   source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/ParisJug.md
 - slug: PerthJUG
   name: Perth Java & JVM Community
@@ -2063,6 +2076,15 @@
   latitude: 52.4064
   longitude: 16.9252
   source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/PoznanJUG.md
+- slug: PragueJUG
+  name: Prague Java User Group
+  country: Czechia
+  website: https://praguejavausergroup.cz/
+  meetup_slug: prague-java
+  meetup_url: https://www.meetup.com/prague-java/
+  latitude: 50.0755
+  longitude: 14.4378
+  source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/PragueJUG.md
 - slug: PrayagrajJUG
   name: Prayagraj Java User Group
   country: India
@@ -2356,11 +2378,15 @@
   longitude: 1.4442
   source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/ToulouseJUG.md
 - slug: TriangleJUG
-  name: Triangle Java User Group
+  name: Triangle Java Users Group
   country: United States
-  website: https://meetup.com/Triangle-Java-Users-Group/
-  latitude: 35.7915
-  longitude: -78.7811
+  website: https://trijug.dev/
+  meetup_slug: triangle-java-users-group
+  meetup_url: https://www.meetup.com/triangle-java-users-group/
+  calendar: https://www.meetup.com/triangle-java-users-group/events/ical/
+  contact: Todd Ginsberg
+  latitude: 35.8268
+  longitude: -78.7963
   source_url: https://github.com/World-Wide-JUGs/GlobalWWJugs/blob/master/content/jugs/TriangleJUG.md
 - slug: TrojmiastoJUG
   name: Trójmiasto Java User Group
