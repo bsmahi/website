@@ -1,6 +1,6 @@
 ---
 title: "Introducing Jenesis: You Already Wrote the Build Script"
-date: "2026-10-09"
+date: "2026-10-08"
 description: "Jenesis is a Java build tool that reads the build from module-info.java: no build file to write, no plugins, no build tool to download."
 authors:
   - "rafael-winterhalter"
