@@ -367,7 +367,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 2.5rem 0; }
 .nav-shell { display: contents; }
 .nav-drawer__head { display: none; }
 .primary-nav { margin-left: .5rem; }
-.primary-nav__list { display: flex; align-items: center; gap: .15rem; list-style: none; margin: 0; padding: 0; }
+/* `flex-wrap`: each `.nav-link` is `white-space: nowrap`, so without it the
+   list cannot shrink below its full-text width and overflows the header
+   instead of wrapping -- the gap that showed up at 200% text zoom. */
+.primary-nav__list { display: flex; flex-wrap: wrap; align-items: center; gap: .15rem; list-style: none; margin: 0; padding: 0; }
 
 .nav-link {
   appearance: none; background: none; border: 0; cursor: pointer;
