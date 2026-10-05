@@ -58,6 +58,10 @@ for (const scheme of ['light', 'dark']) {
 test('header actions fit at the previous overflow breakpoint and 200% text', async ({ page }) => {
   await page.setViewportSize({ width: 1120, height: 1000 });
   await page.goto(PAGES.home);
+  // Measuring before the webfont swap completes measures the fallback
+  // font's (narrower) glyphs, not what a reader actually sees -- the gap
+  // between the two is exactly what made this intermittent.
+  await page.evaluate(() => document.fonts.ready);
   const fits = () => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth);
   expect(await fits()).toBe(true);
   await page.locator('.site-header__inner > .header-actions [data-search-toggle]').click();
