@@ -1,6 +1,6 @@
 ---
 title: "We Didn't Want to Build Another Java Server"
-date: "2026-09-25"
+date: "2026-10-09"
 description: "Why we brought Codename One's mobile runtime to the server: small native Java executables, Go comparisons, and shared code from the app to its database."
 authors: ["shai-almog"]
 image: "why-another-java-server-f8959ffdf0.jpg"
