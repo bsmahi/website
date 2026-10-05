@@ -75,58 +75,6 @@ test('header actions fit at the previous overflow breakpoint and 200% text', asy
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.addStyleTag({ content: 'html { font-size: 200%; }' });
   await settle();
-  // TEMP DEBUG: bisect the DOM by hiding one subtree at a time and watching
-  // scrollWidth, since no element's own getBoundingClientRect() exceeded the
-  // viewport here (ruling out a plain unclipped overflow) yet scrollWidth
-  // still exceeded innerWidth -- so whatever it is doesn't show up as a
-  // normal element rect (a pseudo-element, a clipped-but-not-really
-  // container, or a scrollbar-related quirk specific to this engine build).
-  console.log('OVERFLOW_DEBUG', await page.evaluate(() => {
-    const vw = window.innerWidth;
-    function selectorFor(el) {
-      const cls = (el.className?.toString() || '').trim().split(/\s+/).filter(Boolean).map(c => '.' + c).join('');
-      return el.tagName.toLowerCase() + cls;
-    }
-    function scrollWidthWithout(el) {
-      const prevDisplay = el.style.display;
-      el.style.display = 'none';
-      const sw = document.documentElement.scrollWidth;
-      el.style.display = prevDisplay;
-      return sw;
-    }
-    const path = [];
-    let root = document.body;
-    for (let depth = 0; depth < 8; depth++) {
-      let guilty = null;
-      for (const el of root.children) {
-        const sw = scrollWidthWithout(el);
-        if (sw <= vw) { guilty = el; break; }
-      }
-      if (!guilty) break;
-      const r = guilty.getBoundingClientRect();
-      path.push({ sel: selectorFor(guilty), rect: { left: Math.round(r.left), right: Math.round(r.right), width: Math.round(r.width) } });
-      if (guilty.children.length === 0) break;
-      root = guilty;
-    }
-    // No single child of the last node in `path` fixed it alone -- dump every
-    // descendant's rect (no clipping filter) plus any generated content, since
-    // the cause is either several children together or a pseudo-element that
-    // display:none on a child can't isolate.
-    const last = path.length ? root : document.body;
-    const dump = [];
-    last.querySelectorAll('*').forEach(el => {
-      const r = el.getBoundingClientRect();
-      const entry = { sel: selectorFor(el), left: Math.round(r.left), right: Math.round(r.right), width: Math.round(r.width) };
-      for (const pseudo of ['::before', '::after']) {
-        const cs = getComputedStyle(el, pseudo);
-        if (cs.content && cs.content !== 'none' && cs.content !== '""') {
-          entry[pseudo] = { content: cs.content.slice(0, 40), position: cs.position, left: cs.left, width: cs.width, whiteSpace: cs.whiteSpace };
-        }
-      }
-      dump.push(entry);
-    });
-    return JSON.stringify({ scrollWidth: document.documentElement.scrollWidth, innerWidth: vw, path, dump }, null, 2);
-  }));
   expect(await fits()).toBe(true);
   for (const label of ['Write for Foojay', 'Join our Slack']) {
     const box = await page.locator('.site-header__inner > .header-actions').getByRole('link', { name: label }).boundingBox();
