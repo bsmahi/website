@@ -66,6 +66,10 @@ List<DialogueMessage> proposals = responses.stream()
     .filter(r -> r.performative() == Performative.PROPOSE)
     .toList();
 
+if (proposals.isEmpty()) {
+    return CompletableFuture.completedFuture("NO_PROPOSALS");
+}
+
 DialogueMessage best = proposals.stream()
     .min(Comparator.comparingDouble(p -> p.contentAs(Bid.class).cost()))
     .orElseThrow();
