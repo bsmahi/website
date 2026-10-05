@@ -108,7 +108,24 @@ test('header actions fit at the previous overflow breakpoint and 200% text', asy
       if (guilty.children.length === 0) break;
       root = guilty;
     }
-    return JSON.stringify({ scrollWidth: document.documentElement.scrollWidth, innerWidth: vw, path }, null, 2);
+    // No single child of the last node in `path` fixed it alone -- dump every
+    // descendant's rect (no clipping filter) plus any generated content, since
+    // the cause is either several children together or a pseudo-element that
+    // display:none on a child can't isolate.
+    const last = path.length ? root : document.body;
+    const dump = [];
+    last.querySelectorAll('*').forEach(el => {
+      const r = el.getBoundingClientRect();
+      const entry = { sel: selectorFor(el), left: Math.round(r.left), right: Math.round(r.right), width: Math.round(r.width) };
+      for (const pseudo of ['::before', '::after']) {
+        const cs = getComputedStyle(el, pseudo);
+        if (cs.content && cs.content !== 'none' && cs.content !== '""') {
+          entry[pseudo] = { content: cs.content.slice(0, 40), position: cs.position, left: cs.left, width: cs.width, whiteSpace: cs.whiteSpace };
+        }
+      }
+      dump.push(entry);
+    });
+    return JSON.stringify({ scrollWidth: document.documentElement.scrollWidth, innerWidth: vw, path, dump }, null, 2);
   }));
   expect(await fits()).toBe(true);
   for (const label of ['Write for Foojay', 'Join our Slack']) {
