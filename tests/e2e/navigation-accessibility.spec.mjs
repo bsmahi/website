@@ -83,30 +83,32 @@ test('header actions fit at the previous overflow breakpoint and 200% text', asy
   // container, or a scrollbar-related quirk specific to this engine build).
   console.log('OVERFLOW_DEBUG', await page.evaluate(() => {
     const vw = window.innerWidth;
-    function bisect(root, depth) {
-      const results = [];
+    function selectorFor(el) {
+      const cls = (el.className?.toString() || '').trim().split(/\s+/).filter(Boolean).map(c => '.' + c).join('');
+      return el.tagName.toLowerCase() + cls;
+    }
+    function scrollWidthWithout(el) {
+      const prevDisplay = el.style.display;
+      el.style.display = 'none';
+      const sw = document.documentElement.scrollWidth;
+      el.style.display = prevDisplay;
+      return sw;
+    }
+    const path = [];
+    let root = document.body;
+    for (let depth = 0; depth < 8; depth++) {
+      let guilty = null;
       for (const el of root.children) {
-        const prevDisplay = el.style.display;
-        el.style.display = 'none';
-        const sw = document.documentElement.scrollWidth;
-        el.style.display = prevDisplay;
-        results.push({
-          tag: el.tagName,
-          cls: (el.className?.toString() || '').slice(0, 80),
-          scrollWidthWithoutIt: sw,
-          fixesIt: sw <= vw,
-        });
+        const sw = scrollWidthWithout(el);
+        if (sw <= vw) { guilty = el; break; }
       }
-      return results;
+      if (!guilty) break;
+      const r = guilty.getBoundingClientRect();
+      path.push({ sel: selectorFor(guilty), rect: { left: Math.round(r.left), right: Math.round(r.right), width: Math.round(r.width) } });
+      if (guilty.children.length === 0) break;
+      root = guilty;
     }
-    const top = bisect(document.body, 0);
-    const guilty = top.find(r => r.fixesIt);
-    let nested = null;
-    if (guilty) {
-      const el = [...document.body.children].find(c => c.tagName === guilty.tag && (c.className?.toString() || '').slice(0, 80) === guilty.cls);
-      if (el) nested = bisect(el, 1);
-    }
-    return JSON.stringify({ scrollWidth: document.documentElement.scrollWidth, innerWidth: vw, top, nested }, null, 2);
+    return JSON.stringify({ scrollWidth: document.documentElement.scrollWidth, innerWidth: vw, path }, null, 2);
   }));
   expect(await fits()).toBe(true);
   for (const label of ['Write for Foojay', 'Join our Slack']) {
