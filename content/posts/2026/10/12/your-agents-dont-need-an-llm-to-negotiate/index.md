@@ -1,6 +1,6 @@
 ---
 title: "Your agents don't need an LLM to negotiate"
-date: "2026-10-06"
+date: "2026-10-12"
 description: "A manager hands a job to one of three workers, and nothing in the program calls a model. It explains the protocol, and what doesn't survive a restart."
 authors:
   - "mauro-mura"
