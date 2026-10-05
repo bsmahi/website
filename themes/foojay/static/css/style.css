@@ -478,7 +478,11 @@ a.nav-group__title:hover { background: none; color: var(--brand-accent-strong); 
 .nav-panel__foot a { font-weight: 600; font-size: .9rem; color: var(--brand-accent-strong); padding-inline: 0; }
 
 /* Header actions ----------------------------------------------- */
-.header-actions { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; }
+/* `flex-wrap` + right-aligned wrap: a safety margin for platform-dependent
+   font metrics at large text zoom (see .primary-nav__list above) -- without
+   it, a few extra px from a wider glyph render pushes this row past the
+   viewport edge instead of dropping its own items to a second line. */
+.header-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: .6rem; flex: 0 0 auto; }
 .site-header__inner > .header-actions { margin-left: auto; }
 /* The drawer copy exists only for the <=900px off-canvas menu. */
 .header-actions--mobile { display: none; }
@@ -2244,7 +2248,7 @@ a.pagination__btn:hover { border-color: var(--ink); text-decoration: none; }
 
   /* desktop copy hidden; the drawer copy takes over */
   .site-header__inner > .header-actions { display: none; }
-  .primary-nav .header-actions--mobile { display: flex; position: static; flex-direction: column; align-items: stretch; gap: .75rem; margin-top: 1.25rem; }
+  .primary-nav .header-actions--mobile { display: flex; position: static; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: .75rem; margin-top: 1.25rem; }
   .primary-nav .header-actions--mobile .btn { display: inline-flex; justify-content: center; }
   .primary-nav .header-actions--mobile .site-search { display: flex; }
   .primary-nav .header-actions--mobile .site-search label { flex: 1 1 auto; min-width: 0; }

@@ -55,17 +55,17 @@ for (const scheme of ['light', 'dark']) {
   });
 }
 
-// Skipped: the header still overflows at 1280px/200% text zoom after the
-// flex-wrap fix on .primary-nav__list (see that rule's comment) -- there is
-// another element pushing scrollWidth past innerWidth that has not been
-// isolated yet. Re-enable once the actual overflow source is fixed.
-test.skip('header actions fit at the previous overflow breakpoint and 200% text', async ({ page }) => {
+test('header actions fit at the previous overflow breakpoint and 200% text', async ({ page }) => {
   await page.setViewportSize({ width: 1120, height: 1000 });
   await page.goto(PAGES.home);
   // Measuring before the webfont swap completes measures the fallback
   // font's (narrower) glyphs, not what a reader actually sees -- the gap
-  // between the two is exactly what made this intermittent.
-  await page.evaluate(() => document.fonts.ready);
+  // between the two is exactly what made this intermittent. `fonts.ready`
+  // resolving does not guarantee the layout triggered by the swap has been
+  // flushed yet, so wait two animation frames past it as well -- otherwise
+  // the very next measurement can still land on the pre-swap layout.
+  const settle = () => page.evaluate(() => document.fonts.ready.then(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))));
+  await settle();
   const fits = () => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth);
   expect(await fits()).toBe(true);
   await page.locator('.site-header__inner > .header-actions [data-search-toggle]').click();
@@ -74,6 +74,7 @@ test.skip('header actions fit at the previous overflow breakpoint and 200% text'
   await page.keyboard.press('Escape');
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.addStyleTag({ content: 'html { font-size: 200%; }' });
+  await settle();
   expect(await fits()).toBe(true);
   for (const label of ['Write for Foojay', 'Join our Slack']) {
     const box = await page.locator('.site-header__inner > .header-actions').getByRole('link', { name: label }).boundingBox();
