@@ -75,6 +75,29 @@ test('header actions fit at the previous overflow breakpoint and 200% text', asy
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.addStyleTag({ content: 'html { font-size: 200%; }' });
   await settle();
+  // TEMP DEBUG: dump which elements actually push past the viewport edge on
+  // this runner, so the CI log says what a local repro could not reproduce.
+  console.log('OVERFLOW_DEBUG', await page.evaluate(() => {
+    const vw = window.innerWidth;
+    function isClipped(el) {
+      let p = el.parentElement;
+      while (p && p !== document.documentElement) {
+        const cs = getComputedStyle(p);
+        if (cs.overflowX === 'auto' || cs.overflowX === 'hidden' || cs.overflowX === 'scroll') return true;
+        p = p.parentElement;
+      }
+      return false;
+    }
+    const offenders = [];
+    document.querySelectorAll('body *').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.right > vw + 0.5 && !isClipped(el)) {
+        offenders.push({ tag: el.tagName, cls: (el.className?.toString() || '').slice(0, 80), left: Math.round(r.left), right: Math.round(r.right), width: Math.round(r.width) });
+      }
+    });
+    offenders.sort((a, b) => b.right - a.right);
+    return JSON.stringify({ scrollWidth: document.documentElement.scrollWidth, innerWidth: vw, offenders: offenders.slice(0, 15) });
+  }));
   expect(await fits()).toBe(true);
   for (const label of ['Write for Foojay', 'Join our Slack']) {
     const box = await page.locator('.site-header__inner > .header-actions').getByRole('link', { name: label }).boundingBox();
