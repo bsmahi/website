@@ -75,28 +75,38 @@ test('header actions fit at the previous overflow breakpoint and 200% text', asy
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.addStyleTag({ content: 'html { font-size: 200%; }' });
   await settle();
-  // TEMP DEBUG: dump which elements actually push past the viewport edge on
-  // this runner, so the CI log says what a local repro could not reproduce.
+  // TEMP DEBUG: bisect the DOM by hiding one subtree at a time and watching
+  // scrollWidth, since no element's own getBoundingClientRect() exceeded the
+  // viewport here (ruling out a plain unclipped overflow) yet scrollWidth
+  // still exceeded innerWidth -- so whatever it is doesn't show up as a
+  // normal element rect (a pseudo-element, a clipped-but-not-really
+  // container, or a scrollbar-related quirk specific to this engine build).
   console.log('OVERFLOW_DEBUG', await page.evaluate(() => {
     const vw = window.innerWidth;
-    function isClipped(el) {
-      let p = el.parentElement;
-      while (p && p !== document.documentElement) {
-        const cs = getComputedStyle(p);
-        if (cs.overflowX === 'auto' || cs.overflowX === 'hidden' || cs.overflowX === 'scroll') return true;
-        p = p.parentElement;
+    function bisect(root, depth) {
+      const results = [];
+      for (const el of root.children) {
+        const prevDisplay = el.style.display;
+        el.style.display = 'none';
+        const sw = document.documentElement.scrollWidth;
+        el.style.display = prevDisplay;
+        results.push({
+          tag: el.tagName,
+          cls: (el.className?.toString() || '').slice(0, 80),
+          scrollWidthWithoutIt: sw,
+          fixesIt: sw <= vw,
+        });
       }
-      return false;
+      return results;
     }
-    const offenders = [];
-    document.querySelectorAll('body *').forEach(el => {
-      const r = el.getBoundingClientRect();
-      if (r.right > vw + 0.5 && !isClipped(el)) {
-        offenders.push({ tag: el.tagName, cls: (el.className?.toString() || '').slice(0, 80), left: Math.round(r.left), right: Math.round(r.right), width: Math.round(r.width) });
-      }
-    });
-    offenders.sort((a, b) => b.right - a.right);
-    return JSON.stringify({ scrollWidth: document.documentElement.scrollWidth, innerWidth: vw, offenders: offenders.slice(0, 15) });
+    const top = bisect(document.body, 0);
+    const guilty = top.find(r => r.fixesIt);
+    let nested = null;
+    if (guilty) {
+      const el = [...document.body.children].find(c => c.tagName === guilty.tag && (c.className?.toString() || '').slice(0, 80) === guilty.cls);
+      if (el) nested = bisect(el, 1);
+    }
+    return JSON.stringify({ scrollWidth: document.documentElement.scrollWidth, innerWidth: vw, top, nested }, null, 2);
   }));
   expect(await fits()).toBe(true);
   for (const label of ['Write for Foojay', 'Join our Slack']) {
