@@ -26,7 +26,7 @@ The whole thing rests on specs you already have:
 - **Jakarta Data 1.0** for repositories, no DAO classes, no hand-written JPQL for CRUD
 - **Jakarta Concurrency 3.1** for virtual-thread-backed managed executors
 - **Jakarta CDI 4.1** for dependency injection and bean lifecycle
-- **Jakarta REST** for both the inbound HTTP API and the outbound call to Ollama
+- **Jakarta REST** for the inbound HTTP API (the outbound call to Ollama uses the JDK's built-in `java.net.http.HttpClient`, as shown below)
 - **MicroProfile Config** for the model name, temperature, and base URL
 
 On top of that sits PostgreSQL for persistence and Ollama for model inference. PostgreSQL is the same database you probably already use, and Ollama is a local model server that exposes a plain HTTP API.
@@ -37,7 +37,7 @@ Notice what is not on that list: no reactive framework, no ORM wrapper beyond JP
 
 An embedding is a fixed-length array of floats that represents the semantic content of a piece of text. For nomic-embed-text, each embedding is 768 floats, which is 3,072 bytes. You do not need a vector database column type to store that; a `byte[]` field on a JPA entity works fine.
 
-The `DocumentChunk` below is a JPA entity that models a processed chunk of a larger document.
+The `DocumentChunk` below is a JPA entity that models a processed chunk of a larger document. The snippets in this post are trimmed to the essentials: plain getters (such as `getEmbedding()`, `getSource()` and `getContent()`), imports, the `@VirtualThreadExecutor` qualifier and the `renderAnswer` helper are left out. The complete code is in the repository linked at the end.
 
 ```java
 @Entity
@@ -329,7 +329,7 @@ When the application boots, it needs to embed the seed corpus. For 50 chunks tha
 public class ConcurrencyConfig {}
 ```
 
-Jakarta Concurrency 3.1 added `virtual = true` to `@ManagedExecutorDefinition`. The container creates a `ManagedExecutorService` backed by virtual threads, registers it in JNDI, propagates Jakarta EE context to the virtual threads automatically, and exposes it for CDI injection through the qualifier annotation.
+Jakarta Concurrency 3.1 added `virtual = true` to `@ManagedExecutorDefinition`. This asks the container for a `ManagedExecutorService` backed by virtual threads (a runtime may fall back to platform threads if it cannot create them or its configuration restricts them). The container registers the executor in JNDI, propagates Jakarta EE context to its threads automatically, and exposes it for CDI injection through the qualifier annotation.
 
 The ingestion side looks like this:
 
@@ -379,14 +379,23 @@ public class ModelResource {
     @POST
     @Consumes(APPLICATION_FORM_URLENCODED)
     @Produces(TEXT_HTML)
-    public String switchModel(@FormParam("model") String modelName) {
+    public Response switchModel(@FormParam("model") String modelName) {
+        if (modelName == null || modelName.isBlank()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                .entity("A model name is required").build();
+        }
         ollamaChat.switchModel(modelName);
-        return "<strong>" + modelName + "</strong>";
+        return Response.ok("<strong>" + escapeHtml(modelName) + "</strong>").build();
+    }
+
+    private static String escapeHtml(String s) {
+        return s.replace("&", "&amp;").replace("<", "&lt;")
+                .replace(">", "&gt;").replace("\"", "&quot;");
     }
 }
 ```
 
-Standard JAX-RS, with no AI framework annotations or special configuration, just CDI injection and HTTP.
+Standard JAX-RS, with no AI framework annotations or special configuration, just CDI injection and HTTP. The model name arrives from a form field, so it is validated before it replaces the current model and HTML-escaped before it is echoed back. The same applies to the answer rendered by `renderAnswer`: anything that originates from user input or from the model should be escaped before it goes into an HTML response.
 
 ## What this replaces
 
