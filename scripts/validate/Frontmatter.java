@@ -94,7 +94,7 @@ public class Frontmatter {
         problems.addAll(checkSeriesWeights(Path.of("content/pages")));
         problems.addAll(checkSelfAliases(Path.of("content")));
         problems.addAll(checkPostDates(postsDir));
-        problems.addAll(checkFeaturedAuthors(Path.of("hugo.toml"), authorSlugs));
+        problems.addAll(checkFeaturedAuthors(Path.of("data/featured-authors.yaml"), authorSlugs));
         problems.addAll(checkEvents(Path.of("data/events")));
         problems.addAll(checkAds(Path.of("content/ads")));
         problems.addAll(checkImageWeight(Path.of("content")));
@@ -981,17 +981,17 @@ public class Frontmatter {
     }
 
     /**
-     * hugo.toml's `featuredAuthors` is the monthly Featured Authors pick: a
-     * list of author slugs the /today/author/ spotlight band and the home page
-     * sidebar widget resolve through the author index. An unknown slug is
-     * skipped by the template rather than rendered as a dead entry, so the only
-     * symptom of a typo is a featured author quietly not appearing -- the same
-     * silent-drop failure the sponsor `authors:` check above exists for.
+     * data/featured-authors.yaml is the Featured Authors rotation: a
+     * newest-first history of monthly picks, each an `authors` list of slugs
+     * the /today/author/ spotlight band and the home page sidebar widget
+     * resolve through the author index (entry 0 is "current" -- see the
+     * comment in the file). An unknown slug is skipped by the template rather
+     * than rendered as a dead entry, so the only symptom of a typo is a
+     * featured author quietly not appearing -- the same silent-drop failure
+     * the sponsor `authors:` check above exists for.
      *
-     * Parsed with a regex rather than a TOML library: it's one flat array of
-     * strings in a file no other check reads, and adding a dependency to the
-     * PR check for it isn't worth it. An absent or empty list is fine (no
-     * spotlight is rendered between rotations).
+     * The key set is closed for the same reason EVENT_KEYS is: this is data,
+     * not content, so Hugo says nothing about a misspelled field.
      */
     /**
      * Two steps of one series claiming the same position.
@@ -1079,20 +1079,47 @@ public class Frontmatter {
         return s.replaceAll("^/+", "").replaceAll("/+$", "");
     }
 
-    static List<String> checkFeaturedAuthors(Path configFile, Set<String> authorSlugs) throws IOException {
+    static final Set<String> FEATURED_AUTHOR_KEYS = Set.of("month", "authors", "announcement");
+    static final Pattern FEATURED_MONTH_FMT = Pattern.compile("\\d{4}-\\d{2}");
+
+    static List<String> checkFeaturedAuthors(Path dataFile, Set<String> authorSlugs) throws IOException {
         List<String> problems = new ArrayList<>();
-        if (!Files.isRegularFile(configFile)) return problems;
+        if (!Files.isRegularFile(dataFile)) return problems;
 
-        var matcher = Pattern.compile("(?m)^\\s*featuredAuthors\\s*=\\s*\\[([^\\]]*)]")
-                .matcher(Files.readString(configFile));
-        if (!matcher.find()) return problems;
+        Object loaded = new Yaml().load(Files.readString(dataFile));
+        if (!(loaded instanceof List)) {
+            problems.add(dataFile + ": not a YAML list (one entry per rotation, newest first)");
+            return problems;
+        }
 
-        var slugMatcher = Pattern.compile("[\"']([^\"']+)[\"']").matcher(matcher.group(1));
-        while (slugMatcher.find()) {
-            String slug = slugMatcher.group(1);
-            if (!authorSlugs.contains(slug)) {
-                problems.add(configFile + ": featuredAuthors references unknown author slug '" + slug
-                        + "' (expected a folder name under content/authors/)");
+        for (Object item : (List<?>) loaded) {
+            if (!(item instanceof Map)) {
+                problems.add(dataFile + ": entry is not a YAML mapping: " + item);
+                continue;
+            }
+            @SuppressWarnings("unchecked")
+            Map<String, Object> entry = (Map<String, Object>) item;
+
+            for (String key : entry.keySet()) {
+                if (!FEATURED_AUTHOR_KEYS.contains(key)) {
+                    problems.add(dataFile + ": unknown field '" + key + "' -- nothing reads it."
+                            + " Known fields: " + new TreeSet<>(FEATURED_AUTHOR_KEYS));
+                }
+            }
+
+            problems.addAll(checkRequired(dataFile, entry, List.of("month", "authors")));
+
+            if (entry.get("month") instanceof String month && !FEATURED_MONTH_FMT.matcher(month).matches()) {
+                problems.add(dataFile + ": month '" + month + "' should be YYYY-MM");
+            }
+
+            if (entry.get("authors") instanceof List<?> authors) {
+                for (Object slug : authors) {
+                    if (slug instanceof String s && !authorSlugs.contains(s)) {
+                        problems.add(dataFile + ": authors references unknown author slug '" + s
+                                + "' (expected a folder name under content/authors/)");
+                    }
+                }
             }
         }
         return problems;

@@ -104,14 +104,6 @@ enableGitInfo = true
   # on the GitHub Pages test deploy) to paths that DON'T already start with "/".
   logo = "images/foojay-logo.png"
   favicon = "images/favicon.png"
-  # The two authors currently spotlighted as Featured Authors.
-  # This is an editorial pick that rotates monthly.
-  # Values are author slugs, the same identifiers posts and sponsors use.
-  # The list isn't limited to two, but the layouts are designed for that.
-  featuredAuthors = ["marit-van-dijk", "graeme-robinson"]
-  # 2026-09 ["marit-van-dijk", "graeme-robinson"]
-  # 2026-08 ["cristobal-escobar", "shai-almog"]
-  # 2026-07 ["igor-de-souza", "steve-poole"]
 
   # Path to the JUG list consumed by the events sidebar/calendar page.
   jugsDataFile = "jugs"

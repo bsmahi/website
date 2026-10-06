@@ -1,9 +1,10 @@
 {{- /* The "Featured authors" block at the top of /today/author/.
 
-       Two spotlight cards, one per slug in params.featuredAuthors. Everything
-       in them -- photo, bio, socials, article count, latest article -- comes
-       from the author's own bundle and from author-posts.html, so a rotation is
-       the one-line config change and nothing here goes stale.
+       Two spotlight cards, one per slug in the current entry of
+       data/featured-authors.yaml. Everything in them -- photo, bio, socials,
+       article count, latest article -- comes from the author's own bundle and
+       from author-posts.html, so a rotation is a one-line data file change and
+       nothing here goes stale.
 
        Renders nothing when no featured authors are configured. */ -}}
 {{- $featured := partial "featured-authors.html" . -}}

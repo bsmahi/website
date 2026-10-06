@@ -1,0 +1,18 @@
+# The Featured Authors rotation: who is spotlighted on /today/author/ and the
+# home page sidebar widget. Newest first -- partials/featured-authors.html
+# reads entry 0 as "current" rather than storing it separately, so there is
+# only one place to edit when the pick changes.
+#
+# `authors` are the same slugs posts and sponsors use (content/authors/<slug>).
+# `announcement` is the foojay post (if any) introducing that rotation --
+# empty string, not omitted, when there wasn't one. validate/Frontmatter.java
+# checks both.
+- month: "2026-09"
+  authors: ["marit-van-dijk", "graeme-robinson"]
+  announcement: "/today/featured-foojay-authors-for-september-2026/"
+- month: "2026-08"
+  authors: ["cristobal-escobar", "shai-almog"]
+  announcement: "/today/featured-authors-july-and-august-2026/"
+- month: "2026-07"
+  authors: ["igor-de-souza", "steve-poole"]
+  announcement: "/today/featured-authors-july-and-august-2026/"

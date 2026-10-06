@@ -1,6 +1,6 @@
 {{- /* Sidebar version of the Featured Authors block -- same source of truth as
-       featured-authors-band.html (params.featuredAuthors), scaled down to a
-       widget: photo, name, latest article, socials.
+       featured-authors-band.html (data/featured-authors.yaml), scaled down to
+       a widget: photo, name, latest article, socials.
 
        Called from sidebar.html on the home page only; /today/author/ carries
        the full band instead, and repeating it in the aside there would be the
@@ -8,6 +8,10 @@
 
        Renders nothing when no featured authors are configured. */ -}}
 {{- $featured := partial "featured-authors.html" . -}}
+{{- $announcement := "" -}}
+{{- with index (index hugo.Data "featured-authors" | default slice) 0 -}}
+  {{- $announcement = .announcement -}}
+{{- end -}}
 {{- with $featured }}
 <section class="widget widget-featured-authors">
   <h2>Featured authors</h2>
@@ -32,6 +36,9 @@
     </div>
     {{ end }}
   </div>
-  <a class="view-all" href="{{ "today/author/" | relURL }}">View all authors</a>
+  <div class="widget-featured-authors__actions">
+    <a class="view-all" href="{{ "today/author/" | relURL }}">View all authors</a>
+    {{ with $announcement }}<a class="view-all" href="{{ . | strings.TrimPrefix "/" | relURL }}">Read more</a>{{ end }}
+  </div>
 </section>
 {{ end -}}

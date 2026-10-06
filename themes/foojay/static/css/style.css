@@ -1252,6 +1252,13 @@ a.event-strip__title:hover { color: var(--brand-accent-strong); text-decoration:
   font-family: var(--font-display); font-weight: 700; font-size: .88rem;
   color: var(--brand-accent-strong);
 }
+/* Featured authors widget: "View all authors" plus an optional "Read more" to
+   the rotation's announcement post -- two .view-all links side by side
+   instead of each carrying its own margin-top. */
+.widget-featured-authors__actions {
+  display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-top: .8rem;
+}
+.widget-featured-authors__actions .view-all { margin-top: 0; }
 /* Sidebar sponsor widget (partials/sidebar-sponsors.html).
 
    One ROW PER TIER, not one row per sponsor: seven logo+name rows ran ~420px in
@@ -1636,7 +1643,7 @@ a.event-strip__title:hover { color: var(--brand-accent-strong); text-decoration:
   color: var(--ink-muted);
 }
 
-/* Featured authors: the monthly editorial spotlight (params.featuredAuthors).
+/* Featured authors: the monthly editorial spotlight (data/featured-authors.yaml).
    Two shapes, one source -- a two-up band at the top of /today/author/
    (partials/featured-authors-band.html) and a sidebar widget on the home page
    (partials/featured-authors-widget.html). */
