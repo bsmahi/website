@@ -186,11 +186,11 @@ public class OllamaEmbeddings {
     public float[] embed(String text) {
         JsonObject body = Json.createObjectBuilder()
             .add("model", model)
-            .add("prompt", text)
+            .add("input", text)
             .build();
 
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(baseUrl + "/api/embeddings"))
+            .uri(URI.create(baseUrl + "/api/embed"))
             .timeout(Duration.ofSeconds(120))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(body.toString()))
@@ -201,7 +201,7 @@ public class OllamaEmbeddings {
                 request, HttpResponse.BodyHandlers.ofString());
             JsonObject result = Json.createReader(
                 new StringReader(response.body())).readObject();
-            JsonArray vector = result.getJsonArray("embedding");
+            JsonArray vector = result.getJsonArray("embeddings").getJsonArray(0);
             float[] floats = new float[vector.size()];
             for (int i = 0; i < vector.size(); i++) {
                 floats[i] = (float) vector.getJsonNumber(i).doubleValue();
