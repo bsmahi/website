@@ -1,6 +1,6 @@
 ---
 title: "Introducing cbGenesis: The AI-Native ColdBox Starter for BoxLang"
-date: "2026-01-01"
+date: "2026-10-09"
 description: "cbGenesis 1.0 is a production-ready ColdBox starter for BoxLang with auth, RBAC, security, tests, admin tools, and AI-native guidance."
 authors:
   - "luis-majano"
@@ -21,7 +21,7 @@ related_posts: []
 
 For twenty years, **ColdBox** has been one of the most battle-tested HMVC frameworks in the CFML and BoxLang world. **cbGenesis** takes that foundation and ships the part every team rebuilds by hand: authentication, permissions, security hardening, an admin panel, tests, and the guidance an AI agent needs to extend all of it correctly.
 
-![cbGenesis: Scaffold. Build. Accelerate.](home-banner.png)
+![cbGenesis: Scaffold. Build. Accelerate.](home-banner.jpg)
 
 In combination with our new CommandBox BoxLang CLI (`bx-cli`), you can get started easily with one command:
 
