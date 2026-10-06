@@ -4,7 +4,7 @@ date: "2026-10-06"
 description: "Our Featured Authors for October are Bazlur Rahman and Nicolas Fränkel. Here is what they write about, and where to start reading."
 authors:
   - "frankdelporte"
-image: "foojay-featured-authors.jpg"
+image: "foojay-featured-authors-202610.jpg"
 categories:
   - "Foojay"
 related_posts:
