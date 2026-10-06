@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-04T07:02:36Z",
+  "generatedAt" : "2026-10-06T07:39:46Z",
   "source" : "iCal feeds published by the JUGs themselves (data/jugs.yaml `calendar`) and Meetup's iCal export for the groups that use it; venues from the feed's LOCATION or the schema.org JSON-LD on the event page -- see scripts/fetch/JugEvents.java",
   "groups" : [ {
     "slug" : "almaty-java-user-group",
@@ -21,15 +21,7 @@
     "jug" : "AmsterdamJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/amsterdam-java-user-group/",
-    "events" : [ {
-      "title" : "Amsterdam JUG Meetup at Mollie",
-      "url" : "https://www.meetup.com/amsterdam-java-user-group/events/316510908/",
-      "startTime" : "2026-10-05T18:00:00+02:00",
-      "endTime" : "2026-10-05T21:00:00+02:00",
-      "venue" : "Mollie",
-      "city" : "Amsterdam",
-      "online" : false
-    } ]
+    "events" : [ ]
   }, {
     "slug" : "apeldoornjug",
     "name" : "ApeldoornJUG",
@@ -48,7 +40,7 @@
       "url" : "https://www.meetup.com/arnhemjug/events/314385055/",
       "startTime" : "2026-10-29T17:00:00+01:00",
       "endTime" : "2026-10-29T19:00:00+01:00",
-      "venue" : "OpenValue Arnhem",
+      "venue" : "Alliander",
       "city" : "Arnhem",
       "online" : false
     } ]
@@ -117,14 +109,30 @@
     "jug" : "BostonJavaUsersACMChapter",
     "source" : "meetup",
     "url" : "https://www.meetup.com/nejug1/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "Developer Career Masterplan",
+      "url" : "https://www.meetup.com/nejug1/events/316852993/",
+      "startTime" : "2026-10-22T18:00:00-04:00",
+      "endTime" : "2026-10-22T20:30:00-04:00",
+      "venue" : "Red Hat, Inc.",
+      "city" : "Boston",
+      "online" : false
+    } ]
   }, {
     "slug" : "brabant-jug",
     "name" : "BrabantJUG",
     "jug" : "BrabantJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/brabant-jug/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "BrabantJUG @ the/experts",
+      "url" : "https://www.meetup.com/brabant-jug/events/316812291/",
+      "startTime" : "2026-10-29T17:30:00+01:00",
+      "endTime" : "2026-10-29T21:00:00+01:00",
+      "venue" : "the/experts.",
+      "city" : "Breda",
+      "online" : false
+    } ]
   }, {
     "slug" : "brno-java",
     "name" : "Brno Java User Group",
@@ -606,15 +614,7 @@
     "jug" : "MuenchenJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/Java-User-Group-Munchen-JUGM/",
-    "events" : [ {
-      "title" : "Modernizing Java EE Monoliths: A Roadmap to Scalable Microservices",
-      "url" : "https://www.meetup.com/java-user-group-munchen-jugm/events/316549324/",
-      "startTime" : "2026-10-05T19:00:00+02:00",
-      "endTime" : "2026-10-05T21:00:00+02:00",
-      "venue" : "Eden Hotel Wolff",
-      "city" : "München",
-      "online" : false
-    } ]
+    "events" : [ ]
   }, {
     "slug" : "java-usergroup-munster",
     "name" : "Java Usergroup Münster",
@@ -819,14 +819,6 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/londonjavacommunity/",
     "events" : [ {
-      "title" : "LJC Roundtable: The JCP, Java Community & The Future of Java",
-      "url" : "https://www.meetup.com/londonjavacommunity/events/316499024/",
-      "startTime" : "2026-10-05T18:00:00+01:00",
-      "endTime" : "2026-10-05T21:00:00+01:00",
-      "venue" : "The Marquis Cornwallis",
-      "city" : "London",
-      "online" : false
-    }, {
       "title" : "LJC Winter Unconference 2026",
       "url" : "https://www.meetup.com/londonjavacommunity/events/315973600/",
       "startTime" : "2026-12-04T09:00:00Z",
@@ -870,7 +862,15 @@
     "jug" : "MontrealJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/montreal-jug/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "Developer Career Masterplan with Bruno Souza",
+      "url" : "https://www.meetup.com/montreal-jug/events/316859533/",
+      "startTime" : "2026-10-15T17:30:00-04:00",
+      "endTime" : "2026-10-15T20:00:00-04:00",
+      "venue" : "McGill University",
+      "city" : "Montréal",
+      "online" : false
+    } ]
   }, {
     "slug" : "nairobi-jvm",
     "name" : "Nairobi Java User Group",
@@ -918,7 +918,15 @@
     "jug" : "OttawaJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/ottawa-java-user-group/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "7 Ways You Can Build an Amazing Dev Career in the AI Era",
+      "url" : "https://www.meetup.com/ottawa-java-user-group/events/316856068/",
+      "startTime" : "2026-10-14T18:00:00-04:00",
+      "endTime" : "2026-10-14T20:00:00-04:00",
+      "venue" : "IBM",
+      "city" : "Ottawa",
+      "online" : false
+    } ]
   }, {
     "slug" : "Peru-Java-User-Group",
     "name" : "Perú Java User Group",
@@ -990,14 +998,6 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/toronto-java-users-group/",
     "events" : [ {
-      "title" : "Building Intelligent Java Apps: Agent Patterns, MCP, and the Future of AI Native",
-      "url" : "https://www.meetup.com/toronto-java-users-group/events/316595726/",
-      "startTime" : "2026-10-05T18:30:00-04:00",
-      "endTime" : "2026-10-05T20:30:00-04:00",
-      "venue" : "16 York St",
-      "city" : "Toronto",
-      "online" : false
-    }, {
       "title" : "7 Ways You Can Build an Amazing Dev Career in the AI Era",
       "url" : "https://www.meetup.com/toronto-java-users-group/events/316707940/",
       "startTime" : "2026-10-13T18:30:00-04:00",
@@ -1049,6 +1049,14 @@
     "jug" : "WarsawJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/Warszawa-JUG/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "332. WJUG – Piwowarek/Fedorka Netflix Edition",
+      "url" : "https://www.meetup.com/warszawa-jug/events/316852070/",
+      "startTime" : "2026-10-15T18:00:00+02:00",
+      "endTime" : "2026-10-15T21:00:00+02:00",
+      "venue" : "Netflix Warsaw",
+      "city" : "Warsaw",
+      "online" : false
+    } ]
   } ]
 }
