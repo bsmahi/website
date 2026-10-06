@@ -1253,12 +1253,16 @@ a.event-strip__title:hover { color: var(--brand-accent-strong); text-decoration:
   color: var(--brand-accent-strong);
 }
 /* Featured authors widget: "View all authors" plus an optional "Read more" to
-   the rotation's announcement post -- two .view-all links side by side
-   instead of each carrying its own margin-top. */
+   the rotation's announcement post. A gap alone read as one run-on link, so
+   the second link gets the site's own "·" separator (same token as the
+   byline/date row) rather than more whitespace. */
 .widget-featured-authors__actions {
-  display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-top: .8rem;
+  display: flex; flex-wrap: wrap; align-items: baseline; margin-top: .8rem;
 }
 .widget-featured-authors__actions .view-all { margin-top: 0; }
+.widget-featured-authors__actions .view-all + .view-all::before {
+  content: "·"; margin: 0 .6rem; color: var(--border-strong);
+}
 /* Sidebar sponsor widget (partials/sidebar-sponsors.html).
 
    One ROW PER TIER, not one row per sponsor: seven logo+name rows ran ~420px in

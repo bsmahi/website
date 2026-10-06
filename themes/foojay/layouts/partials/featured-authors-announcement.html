@@ -1,0 +1,9 @@
+{{- /* The current (entry 0) rotation's announcement URL from
+       data/featured-authors.yaml, or "" when that rotation had none.
+       Shared by featured-authors-band.html and featured-authors-widget.html
+       so the lookup isn't duplicated between them. */ -}}
+{{- $announcement := "" -}}
+{{- with index (index hugo.Data "featured-authors" | default slice) 0 -}}
+  {{- $announcement = .announcement -}}
+{{- end -}}
+{{- return $announcement -}}

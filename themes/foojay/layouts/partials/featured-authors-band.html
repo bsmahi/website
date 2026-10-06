@@ -8,6 +8,7 @@
 
        Renders nothing when no featured authors are configured. */ -}}
 {{- $featured := partial "featured-authors.html" . -}}
+{{- $announcement := partial "featured-authors-announcement.html" . -}}
 {{- with $featured }}
 <section class="featured-authors">
   <div class="section-head">
@@ -15,6 +16,7 @@
       <h2>Featured authors</h2>
       <p>Two of our contributors, spotlighted this month.</p>
     </div>
+    {{ with $announcement }}<a class="more" href="{{ . | strings.TrimPrefix "/" | relURL }}">Read more &rarr;</a>{{ end }}
   </div>
   <div class="featured-author-grid">
     {{ range . }}

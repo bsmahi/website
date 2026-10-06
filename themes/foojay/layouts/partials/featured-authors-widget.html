@@ -8,10 +8,7 @@
 
        Renders nothing when no featured authors are configured. */ -}}
 {{- $featured := partial "featured-authors.html" . -}}
-{{- $announcement := "" -}}
-{{- with index (index hugo.Data "featured-authors" | default slice) 0 -}}
-  {{- $announcement = .announcement -}}
-{{- end -}}
+{{- $announcement := partial "featured-authors-announcement.html" . -}}
 {{- with $featured }}
 <section class="widget widget-featured-authors">
   <h2>Featured authors</h2>
