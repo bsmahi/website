@@ -1,7 +1,7 @@
 ---
 title: "Building a Code Editor Control in JavaFX"
 date: "2026-10-06"
-description: "A look inside a custom JavaFX Control/Skin implementation of a code-editor component: virtualized line numbers, keyword highlighting, bracket matching, multi-cursor editing, undo/redo, and autocomplete."
+description: "Inside a custom JavaFX Control/Skin for a code editor: virtualized line numbers, keyword highlighting, bracket matching, multi-cursor editing, undo/redo and autocomplete."
 authors: ["liban-bande-gonzalez"]
 categories: ["JavaFX", "Java"]
 image: "editor.jpg"
@@ -216,9 +216,9 @@ The autocomplete popup is a third `ListView`, shown inside a `Popup`, positioned
 ```java
 private void updateAutocomplete() {
     String currentWord = wordAt(getSkinnable().caretIndexProperty().get());
-    if (currentWord.isEmpty()) { 
+    if (currentWord.isEmpty()) {
         autocompletePopup.hide();
-         return;
+        return;
     }
     List<String> matches = new ArrayList<>();
     for (String s : getSkinnable().getAutocompleteSuggestions()) {
@@ -227,7 +227,7 @@ private void updateAutocomplete() {
             matches.add(s);
         }
     }
-    if (matches.isEmpty()) { 
+    if (matches.isEmpty()) {
         autocompletePopup.hide();
         return;
     }
@@ -236,14 +236,14 @@ private void updateAutocomplete() {
     // Find the on-screen cell for the caret's line, then position the popup under it.
     VirtualFlow<IndexedCell<String>> flow = getVirtualFlow();
     IndexedCell<String> cell = null;
-    if(flow != null){
-        cell=flow.getCell(caretLine());
+    if (flow != null) {
+        cell = flow.getCell(caretLine());
     }
     if (cell == null) {
         return;
     }
     Bounds cellBounds = cell.localToScreen(cell.getBoundsInLocal());
-    autocompletePopup.show(listView, cellBounds.getMinX() + x, cellBounds.getMaxY());
+    autocompletePopup.show(listView, cellBounds.getMinX(), cellBounds.getMaxY());
 }
 ```
 
