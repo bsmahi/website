@@ -21,7 +21,11 @@ Imagine you're at a supermarket or shopping online. You tap your card or click "
 
 At a high level, a payment system works like this: a transaction is created, it goes through a validation step, and then a final decision is made to approve or decline.
 
+![Diagram showing the high-level payment flow: a user places an order from a mobile app, the request goes to a bank, then through a validation step, and the result comes back as an approve or decline decision to the user.](fraud-detection-payment-flow-overview.png)
+
 Now, let's zoom in on that validation step, because this is where fraud detection actually happens. In our approach, this validation is not a single check but a pipeline composed of multiple stages working together:
+
+![Diagram showing the validation pipeline as four stages in sequence: Transaction, Guardrails, Vector Scoring, and Decision.](fraud-detection-validation-pipeline.png)
 
 1. **Guardrails:** Rule-based checks that catch obvious and well-known fraud patterns immediately, like impossible travel or unusual transaction velocity.
 2. **Vector Scoring:** AI-powered similarity matching that compares the transaction against known patterns to detect more subtle or behavioral fraud.
@@ -40,7 +44,11 @@ This leads to two non-negotiable constraints:
 
 Before we get into how each layer works, it is important to understand how these constraints shape the entire architecture.
 
-A natural first instinct is to build this using a simple synchronous architecture. The payment service calls the fraud service, which then queries the database, and the flow continues to the notification service. This works fine at the beginning. It's simple and easy to understand.
+A natural first instinct is to build this using a simple synchronous architecture.
+
+![Diagram of a synchronous architecture where the Payment Service calls the Fraud Service directly, which queries a database and calls the Notification Service.](fraud-detection-synchronous-architecture.png)
+
+The payment service calls the fraud service, which then queries the database, and the flow continues to the notification service. This works fine at the beginning. It's simple and easy to understand.
 
 But the problem is that everything is tightly connected. One service depends on the next. Now imagine the database takes a bit longer to respond. That delay starts to affect the whole flow. The fraud service slows down, the payment service has to wait, and the notification service also gets delayed.
 
@@ -51,6 +59,8 @@ At scale, this becomes a real issue. One slow component can impact everything el
 Instead of having services call each other directly, we introduce an event log as the backbone of communication.
 
 [Apache Kafka](https://kafka.apache.org/) allows the payment service to publish a transaction event to a topic, without knowing who will consume it. The fraud service, the notification service, and any other interested component can subscribe to that topic independently.
+
+![Diagram of an event-driven architecture where a Producer's Payment Service sends a message to a Kafka transactions-topic, and a Consumer containing the Fraud Service and Notification Service subscribes to that topic independently.](fraud-detection-kafka-event-driven.png)
 
 This fundamentally changes how the system behaves:
 
@@ -73,6 +83,8 @@ So the question becomes: How do we perform these kinds of checks without hitting
 [Kafka Streams](https://kafka.apache.org/documentation/streams/) is a lightweight Java library that runs inside your application, processing events as they flow through Kafka topics. More importantly, it allows us to maintain state locally.
 
 Instead of querying a remote database for every transaction, we keep the necessary data inside the same process that handles the events, using an embedded store backed by RocksDB.
+
+![Diagram showing Kafka Streams maintaining local state stores next to the transactions-topic, used by a countTransactionsInWindow function, with the Fraud Service and Notification Service consuming from the topic.](fraud-detection-kafka-streams-state-store.png)
 
 In our example, we want to analyze transaction activity per card within a short time window. To do that, we group events by card number. Each card number becomes a key, and for each key, the system maintains a running view of recent activity within a defined time window. This means we eliminate network calls and database round-trips from the critical path, relying only on local lookups. For our use case, this makes a big difference.
 
@@ -154,6 +166,8 @@ This transaction would pass every guardrail check. But what if $2 micro-charges 
 
 ## Stage 2: Vector Scoring, Behavioral Fraud Detection
 
+![Diagram showing a transaction being converted to an embedding vector, then used to perform a vector search against a fraud_patterns collection.](fraud-detection-vector-scoring-flow.png)
+
 At this point, the question changes. Instead of asking: "Does this transaction violate a rule?" We ask: "Does this transaction behave like something we have seen before?"
 
 To answer that, we need a way to compare transactions based on behavior, rather than exact values. For example:
@@ -187,6 +201,7 @@ This text is then passed to an embedding model, which produces a vector like:
 
 [0.0392, 0.9323, -0.0323, ...]
 
+![Diagram showing unstructured transaction data passed into the voyage-finance-2 embedding model, which produces a vector of numbers as output.](fraud-detection-embedding-generation.png)
 
 In our case, we are using the voyage-finance-2 model, which is specialized for financial data from [Voyage AI](https://www.voyageai.com/). This model generates a vector with 1024 dimensions, where each value contributes to capturing a different aspect of the transaction's behavior.
 
@@ -208,7 +223,11 @@ The role of this client is to send the transaction text to the embedding API and
 
 The model maps that description into a vector space where similar behaviors are placed closer together. This means that transactions that behave similarly will generate vectors that are close to each other.
 
-To make this more intuitive, you can imagine a simplified 2D space. In this space:
+To make this more intuitive, you can imagine a simplified 2D space.
+
+![Simplified 2D scatter plot showing a grocery purchase and coffee purchase clustered close together, an online shopping point nearby, and a late-night crypto transaction positioned far apart from the rest.](fraud-detection-vector-space-2d.png)
+
+In this space:
 
 - Everyday purchases like coffee or groceries tend to cluster together
 - Similar types of transactions stay close
@@ -339,6 +358,8 @@ The ideal value depends on your domain and risk tolerance.
 ## The Full Architecture
 
 Putting it all together, the flow looks like this:
+
+![Full architecture diagram: a client app sends a transaction through a TransactionController and TransactionProducer to a FraudDetectionProcessor running guardrails checks in Kafka Streams. Suspicious transactions are saved to a suspicious_transactions repository; non-suspicious ones go through a FraudPatternSearch vector scoring step using Voyage AI embeddings and a vector search against fraud patterns, routing to either the suspicious or approved transaction repository, both backed by MongoDB Atlas.](fraud-detection-full-architecture.png)
 
 - **Client App** produces a transaction event to a Kafka topic.
 - **FraudDetectorProcessor** consumes the event via Kafka Streams.
