@@ -14,9 +14,9 @@ related_posts:
   - "green-build-wrong-task-a-working-agreement-for-java-teams-using-ai-coding-agents"
 ---
 
-## What is Error Prone?
-
 The Java compiler's job is to check whether code follows the rules of the language. Trying to remove an element from a collection that can never contain it, or using the wrong letter in a date pattern, does not break those rules, so nothing stops the code from compiling. In short, any code that follows the rules compiles, even when it does not do what its author intended.
+
+## What is Error Prone?
 
 [Error Prone](https://errorprone.info/) is an open source static analysis tool that Google built to fill this gap. Unlike most static analysis tools, it does not run as a separate step; it plugs into `javac` as a plugin. Using the information the compiler produces while analyzing the code, it looks for patterns that follow the rules of the language but are most likely wrong, and reports them as compiler warnings or errors.
 
