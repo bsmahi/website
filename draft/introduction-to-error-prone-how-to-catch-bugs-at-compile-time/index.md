@@ -91,7 +91,7 @@ Error Prone is not a closed set of rules. Where the built-in checks fall short, 
 
 [Refaster](https://errorprone.info/docs/refaster) is a refactoring tool that is part of Error Prone, built for large-scale transformations across big codebases. You do not write the rule against an AST API, but in plain Java: "when you see this, replace it with that."
 
-A Refaster rule is an ordinary Java class with two methods. `@BeforeTemplate` defines the pattern to look for, and `@AfterTemplate` defines the code to put in its place:
+A Refaster rule is an ordinary Java class with at least two methods. `@BeforeTemplate` defines the pattern to look for, and `@AfterTemplate` defines the code to put in its place:
 
 ```java
 class StringIsEmpty {
@@ -195,6 +195,8 @@ LOG.log(Level.INFO, "Receipt for order " + orderId + " sent to " + customer.emai
 [ERROR] CheckoutService.java:[25,67] [SensitiveDataLogging] 'customer' contains sensitive data and must not be written to logs
 [ERROR] CheckoutService.java:[28,90] [SensitiveDataLogging] 'customer.email()' contains sensitive data and must not be written to logs
 ```
+
+The check looks at the expression passed to the logger, so a value first copied into a local variable (`String email = customer.email();`) is not tracked; following it would need data-flow analysis.
 
 This short class shows all the parts of a custom check:
 
