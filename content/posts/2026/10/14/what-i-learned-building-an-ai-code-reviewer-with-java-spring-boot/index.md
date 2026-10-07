@@ -1,10 +1,10 @@
 ---
 title: "What I Learned Building an AI Code Reviewer with Java and Spring Boot"
-date: "2026-01-01"
+date: "2026-10-14"
 description: "What I learned building an AI code-review workflow around GitHub Pull Requests, Spring Boot, and multiple AI providers."
 authors:
-  - "isabitech"
-image: "codeguard-ai-cover.png"
+  - "sweety717"
+image: "codeguard-ai-cover.jpg"
 categories:
   - "Java"
   - "Spring"

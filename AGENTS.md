@@ -562,7 +562,7 @@ site.
 - **Images have a per-file budget, and the deploy is why.** The built site hit
   **1.26 GB against GitHub Pages' hard 1 GB artifact limit**, and that warning
   lands on a run that otherwise goes **green**. The site is ~864 MB now with
-  ~136 MB of headroom. Anything over 4 MB fails the PR check.
+  ~136 MB of headroom. An image a PR adds or changes over 2 MB fails the PR check (4 MB for what is already there).
 
   **JPEG, not WebP, for large PNGs** — Frank's call; q85 saves 81% against
   WebP's 89%, either clears the limit, and JPEG is what the other 1400 images

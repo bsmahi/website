@@ -1,4 +1,5 @@
 ---
+date: "2026-10-13"
 title: "Introduction to Error Prone: How to Catch Bugs at Compile Time"
 description: "Error Prone plugs into javac to catch code that compiles but is most likely wrong. A tour of its built-in checks, Refaster rules and custom BugCheckers."
 authors:

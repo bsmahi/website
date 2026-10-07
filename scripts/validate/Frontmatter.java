@@ -97,7 +97,7 @@ public class Frontmatter {
         problems.addAll(checkFeaturedAuthors(Path.of("data/featured-authors.yaml"), authorSlugs));
         problems.addAll(checkEvents(Path.of("data/events")));
         problems.addAll(checkAds(Path.of("content/ads")));
-        problems.addAll(checkImageWeight(Path.of("content")));
+        problems.addAll(checkImageWeight(Path.of("content"), touched));
         problems.addAll(checkHeroImageStill(Path.of("content")));
         problems.addAll(checkHeroWeight(Path.of("content/posts")));
         problems.addAll(checkBundleWeight(Path.of("content/posts")));
@@ -791,20 +791,17 @@ public class Frontmatter {
     }
 
     /**
-     * The biggest a single bundle image may be.
+     * The biggest a single bundle image may be: 2 MB for an image a branch adds
+     * or changes, 4 MB for everything already in content/.
      *
-     * 4 MB, set from what content/ actually looks like after .claude/resize_images.py has
-     * run -- the largest legitimate asset is moveRefactoring.webp at 3.53 MB, a
-     * 228-frame screen recording -- rather than from a round number that happens to
-     * look strict. 3 MB would have forced that one down to roughly 550px, where the
-     * code being refactored is no longer readable, which is a worse outcome than a
-     * slightly looser guard.
-     *
-     * The point is to catch the egregious, and it still does: the files that put
-     * the artifact 255 MB over GitHub Pages' 1 GB limit were 52 MB, 26 MB, 10 MB
-     * and 6.4 MB. Nothing in content/ is within 500 KB of this ceiling.
+     * The backlog is why there are two. After .claude/resize_images.py the
+     * largest legitimate asset is a 3.8 MB GIF and 29 files are over 2 MB, so
+     * one low ceiling over the whole tree would fail every PR on someone else's
+     * screen recording. The 4 MB ceiling still catches the egregious (the files
+     * that put the artifact over GitHub Pages' 1 GB were 52, 26, 10 and 6.4 MB).
      */
     static final long MAX_IMAGE_BYTES = 4_000_000L;
+    static final long MAX_NEW_IMAGE_BYTES = 2_000_000L;
     static final Set<String> IMAGE_EXTS = Set.of(".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".svg");
 
     /**
@@ -825,7 +822,7 @@ public class Frontmatter {
      * whichever PR happened to cross the line, blaming an author whose own images
      * were fine.
      */
-    static List<String> checkImageWeight(Path contentDir) throws IOException {
+    static List<String> checkImageWeight(Path contentDir, Set<Path> touched) throws IOException {
         List<String> problems = new ArrayList<>();
         if (!Files.isDirectory(contentDir)) return problems;
 
@@ -835,12 +832,14 @@ public class Frontmatter {
                 int dot = name.lastIndexOf('.');
                 if (dot < 0 || !IMAGE_EXTS.contains(name.substring(dot))) continue;
                 long size = Files.size(file);
-                if (size <= MAX_IMAGE_BYTES) continue;
+                boolean changed = touched != null && touched.contains(file.normalize());
+                long budget = changed ? MAX_NEW_IMAGE_BYTES : MAX_IMAGE_BYTES;
+                if (size <= budget) continue;
                 problems.add(String.format(
                         "%s: image is %.1f MB, over the %.0f MB budget -- resize or compress it"
                         + " (an animated GIF should be an animated WebP; `python3 .claude/resize_images.py"
                         + " --path %s` does both)",
-                        file, size / 1e6, MAX_IMAGE_BYTES / 1e6, file.getParent()));
+                        file, size / 1e6, budget / 1e6, file.getParent()));
             }
         }
         return problems;

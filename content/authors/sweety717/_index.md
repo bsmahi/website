@@ -1,12 +1,12 @@
 ---
-title: "JavaCoder"
-avatar: "javacoder.jpg"
-avatarFull: "javacoder.jpg"
+title: "Sweety717"
+avatar: "sweety717.jpg"
+avatarFull: "sweety717-full.jpg"
 bio: "Java Backend Developer | Java 17 | Spring Boot | AI Developer Tools | Building CodeGuard AI & ResumeIQ AI"
 bluesky: ""
 mastodon: ""
 linkedin: ""
-github: ""
+github: "https://github.com/Sweety717"
 youtube: ""
 website: ""
 ---
