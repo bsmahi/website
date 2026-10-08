@@ -16,7 +16,7 @@ related_posts:
 
 WordPress made it easy for anyone to build a website. So easy that [43% of the web](https://w3techs.com/technologies/details/cm-wordpress) runs on it. Twenty years later, it's just as easy for anyone to break into one. If that sounds dramatic, keep reading.
 
-[11K plugin vulnerabilities in 2025/26 (+42% YoY), exploit time on critical vulnerabilities: 5 hours](https://patchstack.com/whitepaper/state-of-wordpress-security-in-2026/). The question is not if they can pwn your website, it is when.
+11K plugin vulnerabilities in 2025/26 (+42% YoY), exploit time on critical vulnerabilities: 5 hours ([source](https://patchstack.com/whitepaper/state-of-wordpress-security-in-2026/)). The question is not if they can pwn your website, it is when.
 
 **~13K WordPress websites get hacked every day. When will it be your turn?**
 
