@@ -309,20 +309,39 @@ public class JvmWeekly {
         int fetched = 0, viaSection = 0, viaTitle = 0, viaByline = 0, noLead = 0;
 
         for (Edition e : editions) {
+            // AN EDITION ALREADY IN THE CACHE IS DONE, FULL STOP -- not just its
+            // body. Candidate status and the main-article match were both
+            // resolved the run that first cached it, and content/ for a post
+            // years old does not change, so re-running isCandidate() and
+            // mainArticle() against 2000+ posts for it every single day is pure
+            // waste. This is what makes a warm daily run check only genuinely
+            // new editions instead of re-deriving the whole archive.
+            Cached cached = cache.get(e.slug);
+            if (cached != null) {
+                Map<String, Object> edition = new LinkedHashMap<>();
+                edition.put("date", e.date);
+                edition.put("title", e.title);
+                if (e.volume != null) edition.put("volume", e.volume);
+                edition.put("url", e.url);
+                if (e.subtitle != null) edition.put("subtitle", e.subtitle);
+                if (cached.main() != null) edition.put("main", cached.main());
+                List<String> also = cached.articles().stream()
+                        .filter(s -> !s.equals(cached.main())).toList();
+                if (!also.isEmpty()) edition.put("articles", also);
+                kept.add(edition);
+                continue;
+            }
+
             boolean inSection = sectionSlugs.contains(e.slug);
             boolean candidate = inSection || site.isCandidate(e.title);
 
-            // A body comes from the feed, then the cache, then the network --
-            // and the network only for a candidate, so an ordinary edition
-            // never costs a request.
+            // A body comes from the feed, then the network -- and the network
+            // only for a candidate, so an ordinary edition never costs a request.
             String body = feedBodies.get(e.slug);
-            Cached cached = cache.get(e.slug);
             List<String> links = null;
 
             if (body != null) {
                 links = site.foojayPosts(body);
-            } else if (cached != null) {
-                links = cached.articles();
             } else if (candidate && fetched < bodyLimit) {
                 try {
                     Thread.sleep(REQUEST_PAUSE_MS);
