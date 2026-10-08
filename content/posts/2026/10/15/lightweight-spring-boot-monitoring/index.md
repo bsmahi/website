@@ -1,7 +1,6 @@
 ---
 title: "Lightweight Spring Boot Monitoring Without Prometheus and Grafana"
-# Provisional template date; the maintainer sets the publication date.
-date: "2026-01-01"
+date: "2026-10-15"
 description: "Monitor Spring Boot applications on a small VPS using Actuator and StatLite, without operating a full Prometheus and Grafana stack."
 authors:
   - "ted-kupolov"
