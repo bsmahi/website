@@ -1,6 +1,6 @@
 ---
 title: "Keep WordPress If You're Looking for Trouble... Or Read This!"
-date: "2026-01-01"
+date: "2026-10-10"
 description: "~13K WordPress sites get hacked every day. Here's why static site generators are the answer, and how to migrate."
 authors:
   - "andy-damevin"
@@ -9,6 +9,7 @@ categories:
   - "Security"
   - "Opinion"
 related_posts:
+  - "announcing-the-new-foojay"
   - "foojay-podcast-102"
 ---
 
