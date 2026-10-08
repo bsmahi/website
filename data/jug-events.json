@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-07T07:20:43Z",
+  "generatedAt" : "2026-10-08T07:31:42Z",
   "source" : "iCal feeds published by the JUGs themselves (data/jugs.yaml `calendar`) and Meetup's iCal export for the groups that use it; venues from the feed's LOCATION or the schema.org JSON-LD on the event page -- see scripts/fetch/JugEvents.java",
   "groups" : [ {
     "slug" : "almaty-java-user-group",
@@ -96,6 +96,14 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/belgian-java-user-group/",
     "events" : [ {
+      "title" : "Patterns and Anti-Patterns of Agentic Engineering with Victor Rentea",
+      "url" : "https://www.meetup.com/belgian-java-user-group/events/316884744/",
+      "startTime" : "2026-10-13T19:00:00+02:00",
+      "endTime" : "2026-10-13T22:00:00+02:00",
+      "venue" : "Share & Fun",
+      "city" : "Bruxelles",
+      "online" : false
+    }, {
       "title" : "Breaking changes, there's a test for that! & Black Cats",
       "url" : "https://www.meetup.com/belgian-java-user-group/events/316783992/",
       "startTime" : "2026-10-21T17:45:00+02:00",
@@ -180,7 +188,15 @@
     "jug" : "GuadalajaraJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/gdljug/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "100 Programadores Dijeron",
+      "url" : "https://www.meetup.com/gdljug/events/316890154/",
+      "startTime" : "2026-10-22T19:00:00-06:00",
+      "endTime" : "2026-10-22T21:00:00-06:00",
+      "venue" : "HackerGarage",
+      "city" : "Guadalajara",
+      "online" : false
+    } ]
   }, {
     "slug" : "java-vienna",
     "name" : "Java Vienna",
@@ -257,14 +273,6 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/jug-bb/",
     "events" : [ {
-      "title" : "A Java 8 lambda and JobRunr is all you need for distributed (batch) processing!",
-      "url" : "https://www.meetup.com/jug-bb/events/316325588/",
-      "startTime" : "2026-10-07T18:30:00+02:00",
-      "endTime" : "2026-10-07T20:30:00+02:00",
-      "venue" : "codecentric AG",
-      "city" : "Berlin",
-      "online" : false
-    }, {
       "title" : "GitHub Copilot DevDays at Deutsche Bank",
       "url" : "https://www.meetup.com/jug-bb/events/316809992/",
       "startTime" : "2026-10-14T18:00:00+02:00",
@@ -333,6 +341,14 @@
       "url" : "https://www.meetup.com/jug-bb/events/kvnqltykcjbcb/",
       "startTime" : "2027-06-01T18:30:00+02:00",
       "endTime" : "2027-06-01T21:00:00+02:00",
+      "venue" : "Da Vinci",
+      "city" : "Berlin",
+      "online" : false
+    }, {
+      "title" : "Monatlicher Stammtisch der JUG Berlin-Brandenburg",
+      "url" : "https://www.meetup.com/jug-bb/events/kvnqltykckbjb/",
+      "startTime" : "2027-07-06T18:30:00+02:00",
+      "endTime" : "2027-07-06T21:00:00+02:00",
       "venue" : "Da Vinci",
       "city" : "Berlin",
       "online" : false
@@ -414,7 +430,15 @@
     "jug" : "FrankfurtMainJUG",
     "source" : "calendar",
     "url" : "http://jugf.de/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "Agentic Coding - die JUGF probiert's aus (Alexander Culum)",
+      "url" : "",
+      "startTime" : "2026-10-28T18:30:00+01:00",
+      "endTime" : "2026-10-28T20:00:00+01:00",
+      "venue" : null,
+      "city" : null,
+      "online" : null
+    } ]
   }, {
     "slug" : "Java-User-Group-Freiburg",
     "name" : "Java User Group Freiburg",
@@ -652,14 +676,6 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/jug-oberpfalz/",
     "events" : [ {
-      "title" : "JUGO - TBD - save the date",
-      "url" : "https://www.meetup.com/jug-oberpfalz/events/313226991/",
-      "startTime" : "2026-10-07T18:00:00+02:00",
-      "endTime" : "2026-10-07T21:00:00+02:00",
-      "venue" : null,
-      "city" : null,
-      "online" : true
-    }, {
       "title" : "Can Qodo Catch What Claude Code Missed?",
       "url" : "https://www.meetup.com/jug-oberpfalz/events/316824075/",
       "startTime" : "2026-10-08T20:00:00+02:00",
@@ -1012,15 +1028,7 @@
     "jug" : "TriangleJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/triangle-java-users-group/",
-    "events" : [ {
-      "title" : "7 Ways You Can Build an Amazing Dev Career in the AI Era",
-      "url" : "https://www.meetup.com/triangle-java-users-group/events/316641269/",
-      "startTime" : "2026-10-07T17:30:00-04:00",
-      "endTime" : "2026-10-07T19:30:00-04:00",
-      "venue" : "3000 Centregreen Way",
-      "city" : "Cary",
-      "online" : false
-    } ]
+    "events" : [ ]
   }, {
     "slug" : "utrecht-java-user-group",
     "name" : "Utrecht Java User Group",
