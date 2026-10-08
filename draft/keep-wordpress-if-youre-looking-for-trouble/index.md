@@ -1,7 +1,7 @@
 ---
 title: "Keep WordPress If You're Looking for Trouble... Or Read This!"
 date: "2026-01-01"
-description: "WordPress gets hacked 13,000 times a day. Here's why static site generators are the answer, and how to migrate."
+description: "~13K WordPress sites get hacked every day. Here's why static site generators are the answer, and how to migrate."
 authors:
   - "andy-damevin"
 image: "cover.jpg"
@@ -16,9 +16,9 @@ related_posts:
 
 WordPress made it easy for anyone to build a website. So easy that [43% of the web](https://w3techs.com/technologies/details/cm-wordpress) runs on it. Twenty years later, it's just as easy for anyone to break into one. If that sounds dramatic, keep reading.
 
-[11K plugin vulnerabilities in 2025/26 (+42% YoY), median exploit time: 5 hours](https://patchstack.com/whitepaper/state-of-wordpress-security-in-2026/). The question is not if they can pwn your website, it is when.
+[11K plugin vulnerabilities in 2025/26 (+42% YoY), exploit time on critical vulnerabilities: 5 hours](https://patchstack.com/whitepaper/state-of-wordpress-security-in-2026/). The question is not if they can pwn your website, it is when.
 
-**13K WordPress websites get hacked every day. When will it be your turn?**
+**~13K WordPress websites get hacked every day. When will it be your turn?**
 
 Here are a few things that could happen:
 
@@ -49,7 +49,7 @@ However:
 
 ## Static is the way!
 
-Simply because: with a static site generator, plugins only run at build time. They produce static files and disappear. Nothing runs in production. Your content lives in git, where security and versioning are handled by providers like GitHub or your own. This is exactly how [Roq](https://iamroq.dev) works.
+Simply because: with a static site generator, plugins only run at build time. They produce static files and disappear. No server-side code runs in production. Your content lives in git, where security and versioning are handled by providers like GitHub or your own. This is exactly how [Roq](https://iamroq.dev) works.
 
 Did I mention that GitHub also lets you generate and publish your static site for free with [GitHub Pages](https://pages.github.com/)? But then again, if you knew that, why would you have picked WordPress in the first place? 🤨
 
@@ -71,7 +71,7 @@ Here are a few examples:
 
 Some features don't even need an external service: static site generators have plugins too, and they only run at build time. Roq has a growing [marketplace](https://iamroq.dev/marketplace/) with plugins for search, sitemap, tagging, diagrams, and more.
 
-**Tip:** [Quarkus](https://quarkus.io/) provides an awesome way to create full-stack web components that integrate directly into your pages. Perfect for building your own services. And with Quarkus on serverless, they scale to zero, meaning they're free when not in use.
+**Tip:** [Quarkus](https://quarkus.io/) provides an awesome way to create full-stack web components that integrate directly into your pages. Perfect for building your own services. And with Quarkus on serverless, they scale to zero, meaning they're practically free when not in use.
 
 *By the way, if this article were written with Roq instead of Hugo, these tips would render as proper admonition blocks out of the box 😉*
 
