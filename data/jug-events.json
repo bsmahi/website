@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-08T07:31:42Z",
+  "generatedAt" : "2026-10-09T07:30:20Z",
   "source" : "iCal feeds published by the JUGs themselves (data/jugs.yaml `calendar`) and Meetup's iCal export for the groups that use it; venues from the feed's LOCATION or the schema.org JSON-LD on the event page -- see scripts/fetch/JugEvents.java",
   "groups" : [ {
     "slug" : "almaty-java-user-group",
@@ -181,7 +181,15 @@
     "jug" : "DubJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/dublinjavausergroup/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "DubJUG 269: Docker's John Feeney & Oracle's Heather VanCura",
+      "url" : "https://www.meetup.com/dublinjavausergroup/events/316897890/",
+      "startTime" : "2026-10-14T18:15:00+01:00",
+      "endTime" : "2026-10-14T21:15:00+01:00",
+      "venue" : "tcube workspaces",
+      "city" : "Dublin",
+      "online" : false
+    } ]
   }, {
     "slug" : "gdljug",
     "name" : "Guadalajara Java User Group",
@@ -388,6 +396,14 @@
     "source" : "calendar",
     "url" : "http://www.jug-da.de/",
     "events" : [ {
+      "title" : "JUG DA: Global Day of Code Retreat Frankfurt",
+      "url" : "https://www.jug-da.de/2026/11/global-day-of-code-retreat/",
+      "startTime" : "2026-11-07T09:00:00+01:00",
+      "endTime" : "2026-11-07T17:00:00+01:00",
+      "venue" : "ING",
+      "city" : "Frankfurt am Main",
+      "online" : null
+    }, {
       "title" : "JUG DA: ADHS in der IT: Vom Chaos zum Code (Joshua Töpfer)",
       "url" : "https://www.jug-da.de/2026/11/ADHS/",
       "startTime" : "2026-11-19T18:30:00+01:00",
@@ -676,14 +692,6 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/jug-oberpfalz/",
     "events" : [ {
-      "title" : "Can Qodo Catch What Claude Code Missed?",
-      "url" : "https://www.meetup.com/jug-oberpfalz/events/316824075/",
-      "startTime" : "2026-10-08T20:00:00+02:00",
-      "endTime" : "2026-10-08T22:00:00+02:00",
-      "venue" : null,
-      "city" : null,
-      "online" : true
-    }, {
       "title" : "JCON USA 2026 at IBM TechXchange",
       "url" : "https://www.meetup.com/jug-oberpfalz/events/316383834/",
       "startTime" : "2026-10-26T09:00:00+01:00",
@@ -758,15 +766,7 @@
     "jug" : "StuttgartJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/jugstuttgart/",
-    "events" : [ {
-      "title" : "AI-Driven Development Meets Jakarta EE: Why Standards Matter More Than Ever",
-      "url" : "https://www.meetup.com/jugstuttgart/events/315684595/",
-      "startTime" : "2026-10-08T18:30:00+02:00",
-      "endTime" : "2026-10-08T20:30:00+02:00",
-      "venue" : "Optica Abrechnungszentrum Dr. Güldener GmbH",
-      "city" : "Stuttgart",
-      "online" : false
-    } ]
+    "events" : [ ]
   }, {
     "slug" : "SwitzerlandJUG",
     "name" : "Java User Group Switzerland",
@@ -849,7 +849,15 @@
     "jug" : "MadridJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/madridjug/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "Valhalla, Now!",
+      "url" : "https://www.meetup.com/madridjug/events/316884651/",
+      "startTime" : "2026-10-21T19:00:00+02:00",
+      "endTime" : "2026-10-21T20:30:00+02:00",
+      "venue" : "Oficinas de Oracle, Madrid",
+      "city" : "Madrid",
+      "online" : false
+    } ]
   }, {
     "slug" : "ManchesterUK-Java-Community",
     "name" : "Manchester Java Community",
@@ -919,7 +927,15 @@
     "jug" : "OrlandoJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/orlando-jug-java-user-group/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "Next-level AI Concepts for Devs: Agents, Tools, and MCP",
+      "url" : "https://www.meetup.com/orlando-jug-java-user-group/events/316905301/",
+      "startTime" : "2026-11-03T18:30:00-05:00",
+      "endTime" : "2026-11-03T20:30:00-05:00",
+      "venue" : "DPAC 108",
+      "city" : "Orlando",
+      "online" : false
+    } ]
   }, {
     "slug" : "ottawa-java-user-group",
     "name" : "Ottawa Java User Group",
@@ -969,14 +985,6 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/GatewayJUG/",
     "events" : [ {
-      "title" : "Agentic AI Workflows with Embabel",
-      "url" : "https://www.meetup.com/gatewayjug/events/315894186/",
-      "startTime" : "2026-10-08T18:30:00-05:00",
-      "endTime" : "2026-10-08T20:00:00-05:00",
-      "venue" : null,
-      "city" : null,
-      "online" : false
-    }, {
       "title" : "Testing the Untestable: Reliably testing AI-Infused Applications",
       "url" : "https://www.meetup.com/gatewayjug/events/315805152/",
       "startTime" : "2026-11-12T18:30:00-06:00",
