@@ -5,6 +5,7 @@ tagline: "A free virtual conference, talks given by Java Champions for the whole
 description: ""
 logo: "logo.png"
 logoBackground: "#1b1e2b"
+sidebarLogo: "logo-sidebar.png"
 website: "https://jchampionsconf.com/"
 websiteLabel: "jchampionsconf.com"
 linkedin: ""
