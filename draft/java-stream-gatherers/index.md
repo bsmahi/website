@@ -30,6 +30,8 @@
 
 ---
 
+![Stream Gatherers](StreamGatherers.jpg "Stream Gatherers")
+
 ### 1. Introduction & Context
 #### 1.1 The Evolution of Streams
 
