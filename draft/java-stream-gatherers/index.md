@@ -26,7 +26,7 @@
   * [5.2 Greedy vs. Short-Circuiting Integrators](#52-greedy-vs-short-circuiting-integrators)
   * [5.3 State Management & Thread Safety](#53-state-management--thread-safety)
   * [5.4 Gatherer vs. Collector: A Quick Comparison](#54-gatherer-vs-collector-a-quick-comparison)
-* [6. Conclusion & Summary](#6-conclusion--summary)
+* [6. Conclusion](#6-conclusion)
 
 ---
 
@@ -226,4 +226,7 @@ Semantically, `source.gather(one).gather(two).gather(three).collect(…)` is equ
 #### 5.3 State Management & Thread Safety
 #### 5.4 Gatherer vs. Collector: A Quick Comparison
 
-### 6. Conclusion & Summary
+### 6. Conclusion
+
+#### References
+- https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Gatherer.html
