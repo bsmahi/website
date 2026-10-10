@@ -61,7 +61,16 @@ To elucidate the transformative impact of Stream Gatherers, let us examine how s
 - **1 to Many (`flatMap`)**: Each input element can generate zero, one, or multiple output elements, which are subsequently flattened into a continuous stream.
    - _Example_:  Splitting a stream of sentences into individual words (`stream.flatMap(sentence -> Arrays.stream(sentence.split(" "))`).
 
+While most of the built-in intermediate operations cover a predominantly majority of day-to-day data transformations, they come with a significant limitation: they are stateless and operate independently on each element. When our business logic requires many-to-many relationships or stateful grouping across multiple elements, such as:
 
+- Grouping items into fixed-size batches of 10 for bulk database inserts
+- Calculating a sliding window moving average of financial stock prices
+- Comparing an element to its predecessor or successor
+- Running a cumulative sum or rolling balance
+
+Most developers resort to using Nested Collectors, Map, Transform, or Overusing Collectors, which leads to code verbosity.
+
+Stream gatherers bridge this exact gap, enabling intermediate operations to maintain private state, buffer elements, and emit custom chunks of data down the pipeline—all while maintaining clean, lazy, and functionally pure streams.
 
 #### 2.2 The Five Ready-to-Use Gatherers
 ##### 2.2.1 Batching Items with `windowFixed`
