@@ -75,7 +75,7 @@ Stream gatherers bridge this exact gap, enabling intermediate operations to main
 #### 2.2 The Five Ready-to-Use Gatherers
 `java.util.stream.Gatherers` is a factory class introduced to provide standard, built-in implementations of custom intermediate operations for the **Java Stream API**.
 
-Recently, I explored **Virtual Threads** by utilizing the endpoint of **HackerNews** to retrieve the top stories. During this exploration, I attempted to implemented the built-in Gatherers methods.
+Recently, I explored **Virtual Threads** by utilizing the endpoint of [**HackerNews**](https://hacker-news.firebaseio.com/v0/topstories.json) to retrieve the top stories. During this exploration, I attempted to implemented the built-in Gatherers methods.
  
 ##### 2.2.1 Batching Items with `windowFixed`
 
@@ -100,6 +100,25 @@ batches.forEach(batch -> System.out.println("Batch: " + batch));
 ```
 
 ##### 2.2.2 Analyzing Sequences with `windowSliding`
+Generates sliding windows of a predetermined size. Unlike `windowFixed`, these windows overlap, incrementally shifting forward by one element at a time.
+
+**Use-cases:**: Utilizing sliding windows of adjacent story IDs to monitor submission velocity or identify sequential ordering discrepancies in real-time.
+
+```java
+List<Integer> storyIds = List.of(50028275, 50029123, 50019911, 50022292, 49997481, 49981264, 50023450);
+
+// Examine sliding windows of 3 consecutive story IDs
+storyIds.stream()
+    .limit(10)
+    .gather(Gatherers.windowSliding(3))
+    .forEach(window -> System.out.println("Sliding ID Window: " + window));
+
+// Output:
+// Sliding ID Window: [50028275, 50029123, 50019911]
+// Sliding ID Window: [50019911, 50022292, 49997481]
+// Sliding ID Window: [49997481, 49981264, 50023450]
+```
+
 ##### 2.2.3 Accumulating Values with `scan`
 ##### 2.2.4 Intermediate Aggregations with `fold`
 ##### 2.2.5 Bounded Parallelism with `mapConcurrent`
