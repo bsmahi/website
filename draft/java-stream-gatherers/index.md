@@ -228,10 +228,10 @@ The Gatherer is composed of four building blocks:
 
 ![Stream Gatherer Blocks](JavaStreamGathererBlocks.png "Stream Gatherer Blocks")
 
-- initializer(): This block creates and returns a new state.
-- integrator(): This block integrates each input element into the state and pushes the results downstream.
-- combiner(): This block combines two states into one.
-- finisher(): This block performs an optional final action once the input is fully consumed.
+- **initializer()**: This block creates and returns a new state.
+- **integrator()**: This block integrates each input element into the state and pushes the results downstream.
+- **combiner()**: This block combines two states into one.
+- **finisher()**: This block performs an optional final action once the input is fully consumed.
 #### 4.3 Concrete Walkthrough: Building a Custom Gatherer
 
 ### 5. Production-Ready Gatherers: Parallelism, State, and Pitfalls
