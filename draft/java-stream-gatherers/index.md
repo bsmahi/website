@@ -319,9 +319,24 @@ public class Main {
 
 ### 5. Production-Ready Gatherers: Parallelism, State, and Pitfalls
 #### 5.1 Parallel Execution Modes & Combiners
+* The Issue: When you run a parallelStream(), the stream runtime divides the data among several worker threads, processes each piece separately, and then uses the combiner() function to combine their intermediate state objects (A).
+* The Pitfall: If your custom gatherer doesn’t have a combiner() (or defaults to a state that can’t be combined), parallel streams might not work as expected, or they could silently degrade by reverting to sequential evaluation.
+* Pro Tip: Make sure you have a strong combiner in place (like (s1, s2) -> { s1.addAll(s2); return s1; }) unless your gatherer is designed to run in a single thread or doesn’t need to manage state.
 #### 5.2 Greedy vs. Short-Circuiting Integrators
+* The Mechanics: Think of an integrator as a switch that tells you whether to keep going or stop. It’s either true (keep consuming) or false (short-circuit and stop).
+* The Performance Win: Checking this switch on every single element can add a tiny bit of extra work. If your custom gatherer processes every element completely (like mapConcurrent or windowFixed), you can use Integrator.ofGreedy(…).
+* Pro Tip: Using ofGreedy tells the JVM runtime that you don’t need to check for short-circuiting, which can help the pipeline run faster.
 #### 5.3 State Management & Thread Safety
+* The Principle: The state type A, created by the initializer() supplier, is made for each thread or segment that processes the stream.
+* The Pitfall: Don’t ever use external, shared mutable collections or static variables inside your integrator. Doing so can cause hidden race conditions when the threads are running at the same time.
+* Pro Tip: Keep your state only inside the lambda body or factory scope to keep things pure and safe for threads.
 #### 5.4 Gatherer vs. Collector: A Quick Comparison
+| Feature | Stream Gatherer (`Gatherer<T, A, R>`) | Stream Collector (`Collector<T, A, R>`) |
+| :--- | :--- | :--- |
+| **Pipeline Position** | **Intermediate Operation** (`.gather(...)`) | **Terminal Operation** (`.collect(...)`) |
+| **Processing Semantics** | **Push-based** (emits items downstream dynamically) | **Pull/Accumulation-based** (folds stream into a container) |
+| **Return Type** | Returns a new **`Stream<R>`**, allowing further chaining | Returns a **final result** (e.g., `List`, `Map`, `Long`) |
+| **Composability** | Highly composable via `.andThen()` | Standalone terminal endpoint |
 
 ### 6. Conclusion
 
