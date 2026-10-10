@@ -258,7 +258,7 @@ Let’s imagine our Hacker News story model is a straightforward Java record lik
 public record HackerNewsStory(int id, String title, String author) {}
 ```
 **Step 2: Constructing the Custom Gatherer**
-We’ll be using the `Gatherer.of(…)` factory method. To create a custom gatherer, you’ll need to define its four main components:
+When constructing a custom gatherer utilizing the factory methods, you interact with up to four functional building blocks. The **integrator is universally mandatory;** however, the API provides default values for the other functions, which are only necessary when your gatherer’s specific behavior necessitates their inclusion.
 - **Initializer (Supplier<A>)**: This part is responsible for setting up the internal state buffer, which is a HashSet that keeps track of all the keys we’ve already seen.
 - **Integrator (Integrator<A, R, T>)**: This component takes each element and checks it against the current state. If it’s new, it pushes it along the stream and tells us to keep going.
 - **Combiner (BinaryOperator<A>)**: If the stream is being evaluated in parallel, this part will merge the state sets together.
