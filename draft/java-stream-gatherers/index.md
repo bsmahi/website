@@ -226,10 +226,10 @@ A Gatherer is an interface that comprises three parameters:
 #### 4.2 The Four Building Blocks (`initializer`, `integrator`, `combiner`, `finisher`,)
 The Gatherer is composed of four building blocks:
 
-- 1. initializer(): This block creates and returns a new state.
-- 2. integrator(): This block integrates each input element into the state and pushes the results downstream.
-- 3. combiner(): This block combines two states into one.
-- 4. finisher(): This block performs an optional final action once the input is fully consumed.
+- initializer(): This block creates and returns a new state.
+- integrator(): This block integrates each input element into the state and pushes the results downstream.
+- combiner(): This block combines two states into one.
+- finisher(): This block performs an optional final action once the input is fully consumed.
 #### 4.3 Concrete Walkthrough: Building a Custom Gatherer
 
 ### 5. Production-Ready Gatherers: Parallelism, State, and Pitfalls
