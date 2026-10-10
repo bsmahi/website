@@ -73,8 +73,32 @@ Most developers resort to using Nested Collectors, Map, Transform, or Overusing 
 Stream gatherers bridge this exact gap, enabling intermediate operations to maintain private state, buffer elements, and emit custom chunks of data down the pipeline—all while maintaining clean, lazy, and functionally pure streams.
 
 #### 2.2 The Five Ready-to-Use Gatherers
- `java.util.stream.Gatherers` is a factory class introduced to provide standard, built-in implementations of custom intermediate operations for the **Java Stream API**
+`java.util.stream.Gatherers` is a factory class introduced to provide standard, built-in implementations of custom intermediate operations for the **Java Stream API**.
+
+Recently, I explored **Virtual Threads** by utilizing the endpoint of **HackerNews** to retrieve the top stories. During this exploration, I attempted to implemented the built-in Gatherers methods.
+ 
 ##### 2.2.1 Batching Items with `windowFixed`
+
+Splits incoming stream elements into non-overlapping lists (batches) of a specified maximum size. The final batch may contain fewer elements if the stream size is not evenly divisible.
+
+**Use-cases:** Simulating HackerNews top story Ids or batching items for bulk database inserts, pagination chunks, or batch fetching API requests.
+
+```java
+// Simulating Hacker News top story IDs
+List<Integer> storyIds = List.of(50028275, 50029123, 50019911, 50022292, 49997481, 49981264, 50023450);
+
+// Group into fixed windows of 3
+List<List<Integer>> batches = storyIds.stream()
+    .gather(Gatherers.windowFixed(3))
+    .toList();
+
+batches.forEach(batch -> System.out.println("Batch: " + batch));
+// Output:
+// Batch: [50028275, 50029123, 50019911]
+// Batch: [50022292, 49997481, 49981264]
+// Batch: [50023450]
+```
+
 ##### 2.2.2 Analyzing Sequences with `windowSliding`
 ##### 2.2.3 Accumulating Values with `scan`
 ##### 2.2.4 Intermediate Aggregations with `fold`
