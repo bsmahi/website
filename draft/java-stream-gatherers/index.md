@@ -266,37 +266,24 @@ We’ll be using the `Gatherer.of(…)` factory method. To create a custom gathe
 
 ```java
 import java.util.HashSet;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Gatherer;
 
 public class HackerNewsGatherers {
 
-    // Custom distinctBy gatherer implementation
     public static <T, K> Gatherer<T, ?, T> distinctBy(Function<? super T, ? extends K> keyExtractor) {
-        return Gatherer.of(
-            // 1. Initializer: Creates a private state set for each pipeline execution
+        return Gatherer.ofSequential(
+            // 1. Initializer: Creates a private state set
             HashSet::new,
             
-            // 2. Integrator: Evaluates each incoming story element
+            // 2. Integrator: Evaluates each incoming element sequentially
             (state, element, downstream) -> {
                 K key = keyExtractor.apply(element);
-                // If the key is newly added to our state set, push it downstream
                 if (state.add(key)) {
-                    return downstream.push(element);
+                    downstream.push(element);
                 }
-                return true; // Keep consuming upstream elements (greedy evaluation)
-            },
-            
-            // 3. Combiner: Merges state sets if evaluated via parallel streams
-            (state1, state2) -> {
-                state1.addAll(state2);
-                return state1;
+                return true; // Keep consuming upstream elements
             }
-           
-            // 4. Finisher: Nothing special to flush at the end for distinct checks
-           (state, downstream) -> {},
-           
         );
     }
 }
