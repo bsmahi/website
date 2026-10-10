@@ -203,7 +203,17 @@ public class MapConcurrentDemo {
 
 ### 3. Leveling Up: From Using Gatherers to Authoring Your Own
 #### 3.1 When Should You Write a Custom Gatherer?
+Custom gatherers can be implemented in the following scenarios:
+
+- When additional control is required beyond the built-in operations (`map`, `filter`, `collect`).
+- For advanced transformations such as windowing, scanning, deduplication, etc.
+- For performance-optimized and reusable streams processing logic.
+  
 #### 3.2 Pipeline Composition with `andThen()`
+
+Gatherers support composition through the `andThen(Gatherer)` method, which combines two gatherers where the first produces elements that the second can consume. This enables the creation of complex gatherers by composing simpler ones, akin to function composition.
+
+Semantically, `source.gather(one).gather(two).gather(three).collect(…)` is equivalent to `source.gather(one.andThen(two).andThen(three)).collect(…)`
 
 ### 4. Under the Hood: Architecture & Anatomy of Custom Gatherers
 #### 4.1 Anatomy of a `Gatherer<T, A, R>`
