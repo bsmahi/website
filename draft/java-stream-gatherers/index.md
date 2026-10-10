@@ -44,7 +44,7 @@ As a Java developer, we often encounter challenges when dealing with intricate n
 To address this issue, we can leverage the new capability of creating custom intermediate operations.
 
 #### 1.3 What are Stream Gatherers?
-Stream Gatherers is a novel capability introduced [JEP 461 - Streams Gatherers](https://openjdk.org/jeps/461) as a preview feature. It enables the creation of custom intermediate operations,
+**Stream Gatherers** is a novel capability introduced **[JEP 461 - Streams Gatherers](https://openjdk.org/jeps/461)** as a preview feature. It enables the creation of custom intermediate operations,
 providing flexibility in transforming data within stream pipelines in ways that are not readily achievable through existing built-in intermediate operations.
 
 ### 2. Getting Started: Built-In Gatherers in Action
