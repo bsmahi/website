@@ -283,7 +283,7 @@ public class HackerNewsGatherers {
                 K key = keyExtractor.apply(element);
                 // If the key is newly added to our state set, push it downstream
                 if (state.add(key)) {
-                    downstream.push(element);
+                    return downstream.push(element);
                 }
                 return true; // Keep consuming upstream elements (greedy evaluation)
             },
