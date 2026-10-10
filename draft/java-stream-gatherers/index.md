@@ -32,11 +32,17 @@
 
 ### 1. Introduction & Context
 #### 1.1 The Evolution of Streams
+
 In my previous article, I have already covered the evolution of the [Streams API](https://foojay.io/today/java-demystifying-the-stream-api-part-3/) 
 
 In this article, we will delve into Java's Streams Gatherers feature, elucidating its benefits to developers. This feature facilitates the creation of custom operations and enables
 data transformation concurrently with built-in operations such as `map`, `filter`, and `reduce`
+
 #### 1.2 The "Collector Problem"
+
+As a Java developer, we often encounter challenges when dealing with intricate nested-collectors and multi-step operations. Writing such code can result in verbose and complex code.
+To address this issue, we can leverage the new capability of creating custom intermediate operations.
+
 #### 1.3 What are Stream Gatherers?
 
 ### 2. Getting Started: Built-In Gatherers in Action
