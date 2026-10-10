@@ -78,8 +78,7 @@ Stream gatherers bridge this exact gap, enabling intermediate operations to main
 Recently, I explored **Virtual Threads** by utilizing the endpoint of [**HackerNews**](https://hacker-news.firebaseio.com/v0/topstories.json) to retrieve the top stories. During this exploration, I attempted to implemented the built-in Gatherers methods.
  
 ##### 2.2.1 Batching Items with `windowFixed`
-
-Splits incoming stream elements into non-overlapping lists (batches) of a specified maximum size. The final batch may contain fewer elements if the stream size is not evenly divisible.
+`Gatherers.windowFixed(size)`: Splits incoming stream elements into non-overlapping lists (batches) of a specified maximum size. The final batch may contain fewer elements if the stream size is not evenly divisible.
 
 **Use-cases:** Simulating HackerNews top story Ids or batching items for bulk database inserts, pagination chunks, or batch fetching API requests.
 
@@ -100,7 +99,7 @@ batches.forEach(batch -> System.out.println("Batch: " + batch));
 ```
 
 ##### 2.2.2 Analyzing Sequences with `windowSliding`
-Generates sliding windows of a predetermined size. Unlike `windowFixed`, these windows overlap, incrementally shifting forward by one element at a time.
+`Gatherers.windowSliding(size)`: Generates sliding windows of a predetermined size. Unlike `windowFixed`, these windows overlap, incrementally shifting forward by one element at a time.
 
 **Use-cases:**: Utilizing sliding windows of adjacent story IDs to monitor submission velocity or identify sequential ordering discrepancies in real-time.
 
@@ -120,6 +119,22 @@ storyIds.stream()
 ```
 
 ##### 2.2.3 Accumulating Values with `scan`
+`Gatherers.scan(initial, function)`: It keeps adding up the numbers as it goes, like a running total, and then sends out **each step along the way**.
+
+Maintaining a running total or cumulative sum of ID values as a lightweight metrics tracker throughout the pipeline.
+
+```java
+List<Integer> transactions = List.of(100, 250, -50, 100);
+
+// Calculate running account balance starting at 0
+List<Integer> balanceHistory = transactions.stream()
+    .gather(Gatherers.scan(() -> 0, Integer::sum))
+    .toList();
+
+IO.println(balanceHistory); 
+// Output: [100, 350, 300, 400]
+```
+
 ##### 2.2.4 Intermediate Aggregations with `fold`
 ##### 2.2.5 Bounded Parallelism with `mapConcurrent`
 
