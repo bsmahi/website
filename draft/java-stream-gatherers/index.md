@@ -19,7 +19,7 @@
   * [3.2 Pipeline Composition with `andThen()`](#32-pipeline-composition-with-andthen)
 * [4. Under the Hood: Architecture & Anatomy of Custom Gatherers](#4-under-the-hood-architecture--anatomy-of-custom-gatherers)
   * [4.1 Anatomy of a `Gatherer<T, A, R>`](#41-anatomy-of-a-gatherert-a-r)
-  * [4.2 The Four Building Blocks (`initializer`, `integrator`, `combiner`, `finisher`)](#42-the-four-building-blocks-initializer-integrator-finisher-combiner)
+  * [4.2 The Four Building Blocks (`initializer`, `integrator`, `combiner`, `finisher`)](#42-the-four-building-blocks-initializer-integrator-combiner-finisher)
   * [4.3 Concrete Walkthrough: Building a Custom Gatherer](#43-concrete-walkthrough-building-a-custom-gatherer)
 * [5. Production-Ready Gatherers: Parallelism, State, and Pitfalls](#5-production-ready-gatherers-parallelism-state-and-pitfalls)
   * [5.1 Parallel Execution Modes & Combiners](#51-parallel-execution-modes--combiners)
