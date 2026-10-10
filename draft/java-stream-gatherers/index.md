@@ -233,6 +233,22 @@ The Gatherer is composed of four building blocks:
 - **combiner()**: This block combines two states into one.
 - **finisher()**: This block performs an optional final action once the input is fully consumed.
 #### 4.3 Concrete Walkthrough: Building a Custom Gatherer
+Envision you are retrieving a continuous stream of narratives from the **Hacker News API**. However, due to frequent updates or pinning, duplicate stories (or stories authored by the same individual or originating from the same domain) recur repeatedly. Your objective is to implement a custom intermediate operation that dynamically filters elements based on a unique key extractor, thereby preserving the stream’s lazy evaluation and avoiding the reliance on external collections.
+
+**Step 1: Define the Data Model**
+
+Let’s imagine our Hacker News story model is a straightforward Java record like this:
+
+```java
+public record HackerNewsStory(int id, String title, String author) {}
+```
+**Step 2: Constructing the Custom Gatherer**
+We’ll be using the `Gatherer.of(…)` factory method. To create a custom gatherer, you’ll need to define its four main components:
+- **Initializer (Supplier<A>)**: This part is responsible for setting up the internal state buffer, which is a HashSet that keeps track of all the keys we’ve already seen.
+- **Integrator (Integrator<A, R T,>)**: This component takes each element and checks it against the current state. If it’s new, it pushes it along the stream and tells us to keep going.
+- **Combiner (BinaryOperator<A>)**: If the stream is being evaluated in parallel, this part will merge the state sets together.
+- **Finisher (BiConsumer<A, Downstream<R>>)**: This is an optional step. It’s there if you want to clear out any extra elements that were buffered up when the stream finished.
+
 
 ### 5. Production-Ready Gatherers: Parallelism, State, and Pitfalls
 #### 5.1 Parallel Execution Modes & Combiners
