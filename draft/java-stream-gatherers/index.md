@@ -229,4 +229,5 @@ Semantically, `source.gather(one).gather(two).gather(three).collect(…)` is equ
 ### 6. Conclusion
 
 #### References
+- https://openjdk.org/jeps/461
 - https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Gatherer.html
