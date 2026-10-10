@@ -91,7 +91,7 @@ List<List<Integer>> batches = storyIds.stream()
     .gather(Gatherers.windowFixed(3))
     .toList();
 
-batches.forEach(batch -> System.out.println("Batch: " + batch));
+batches.forEach(batch -> IO.println("Batch: " + batch));
 // Output:
 // Batch: [50028275, 50029123, 50019911]
 // Batch: [50022292, 49997481, 49981264]
@@ -110,18 +110,20 @@ List<Integer> storyIds = List.of(50028275, 50029123, 50019911, 50022292, 4999748
 storyIds.stream()
     .limit(10)
     .gather(Gatherers.windowSliding(3))
-    .forEach(window -> System.out.println("Sliding ID Window: " + window));
+    .forEach(window -> IO.println("Sliding ID Window: " + window));
 
 // Output:
-// Sliding ID Window: [50028275, 50029123, 50019911]
-// Sliding ID Window: [50019911, 50022292, 49997481]
-// Sliding ID Window: [49997481, 49981264, 50023450]
+Sliding ID Window: [50028275, 50029123, 50019911]
+Sliding ID Window: [50029123, 50019911, 50022292]
+Sliding ID Window: [50019911, 50022292, 49997481]
+Sliding ID Window: [50022292, 49997481, 49981264]
+Sliding ID Window: [49997481, 49981264, 50023450]
 ```
 
 ##### 2.2.3 Accumulating Values with `scan`
 `Gatherers.scan(initial, function)`: It keeps adding up the numbers as it goes, like a running total, and then sends out **each step along the way**.
 
-Maintaining a running total or cumulative sum of ID values as a lightweight metrics tracker throughout the pipeline.
+**Use-cases:**: Maintaining a running total or cumulative sum of ID values as a lightweight metrics tracker throughout the pipeline.
 
 ```java
 List<Integer> transactions = List.of(100, 250, -50, 100);
@@ -136,7 +138,65 @@ IO.println(balanceHistory);
 ```
 
 ##### 2.2.4 Intermediate Aggregations with `fold`
+
+`Gatherers.fold(initial, folder)` : Like a terminal `reduce`, but acts as an intermediate operation. It folds all elements into a single result and emits only that final value downstream. It executes strictly sequentially.
+
+**Use-cases:**: Let’s put together a neat summary string by combining the top five story IDs right in the middle of the pipeline, so we can keep things organized as we move forward.
+
+```java
+List<Integer> storyIds = List.of(50028275, 50029123, 50019911, 50022292, 49997481, 49981264, 50023450);
+
+// Fold top 5 IDs into a single comma-separated tracking string
+String summaryPayload = storyIds.stream()
+    .limit(5)
+    .gather(Gatherers.fold(
+        () -> "Top Stories Snapshot: ",
+        (accumulator, id) -> accumulator + "[" + id + "] "
+    ))
+    .findFirst()
+    .orElse("");
+
+IO.println(summaryPayload);
+// OUTPUT: Top Stories Snapshot: [50028275] [50029123] [50019911] [50022292] [49997481]
+```
+
 ##### 2.2.5 Bounded Parallelism with `mapConcurrent`
+
+`Gatherers.mapConcurrent(maxConcurrency, mapper)`: This method applies a mapping function to each stream element concurrently using **Virtual Threads (from Project Loom)**, constrained by a maximum concurrency limit while maintaining the order of encounters.
+
+**Use-cases:**:Concurrently retrieving individual story details from [https://hacker-news.firebaseio.com/v0/item/](https://hacker-news.firebaseio.com/v0/item/){id}.json using Virtual Threads with a bounded concurrency limit while preserving the order of retrieval.
+
+```java
+import java.util.List;
+import java.util.stream.Gatherers;
+
+public class MapConcurrentDemo {
+
+    public static void main(String[] args) {
+        // A small list of Hacker News story IDs
+        List<Integer> storyIds = List.of(39121, 39122, 39123, 39124, 39125);
+
+        // Fetch titles concurrently with a max concurrency limit of 3 virtual threads
+        List<String> titles = storyIds.stream()
+            .gather(Gatherers.mapConcurrent(3, id -> fetchStoryTitle(id)))
+            .toList();
+
+        titles.forEach(System.out::println);
+    }
+
+    // Simulated API call method
+    private static String fetchStoryTitle(int id) {
+        try {
+            // Simulate network latency (e.g., calling Hacker News API)
+            Thread.sleep(500); 
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return "Story #" + id + " (Fetched on thread: " + Thread.currentThread().getName() + ")";
+    }
+}
+
+```
 
 ### 3. Leveling Up: From Using Gatherers to Authoring Your Own
 #### 3.1 When Should You Write a Custom Gatherer?
