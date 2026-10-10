@@ -197,8 +197,8 @@ public class MapConcurrentDemo {
 }
 ```
 - **Bounded Concurrency (3)**: Even if your stream contains thousands of elements, it will only execute up to three tasks simultaneously, thereby preventing downstream services or APIs from being overwhelmed by excessive load.
-- **Virtual Threads Under the Hood**: It leverages Project Loom’s lightweight virtual threads, ensuring that blocking network calls don’t hinder the execution of critical platform or operating system threads.
-- **Order Preservation**: Despite concurrent task execution, mapConcurrent ensures that the output list (titles) maintains the exact order of the input storyIds.
+- **Virtual Threads Under the Hood**: It leverages `Project Loom’s lightweight virtual threads`, ensuring that blocking network calls don’t hinder the execution of critical platform or operating system threads.
+- **Order Preservation**: Despite concurrent task execution, `mapConcurrent` ensures that the output list (titles) maintains the exact order of the input storyIds.
 
 
 ### 3. Leveling Up: From Using Gatherers to Authoring Your Own
