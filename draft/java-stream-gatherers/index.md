@@ -288,14 +288,15 @@ public class HackerNewsGatherers {
                 return true; // Keep consuming upstream elements (greedy evaluation)
             },
             
-            // 3. Finisher: Nothing special to flush at the end for distinct checks
-            (state, downstream) -> {},
-            
-            // 4. Combiner: Merges state sets if evaluated via parallel streams
+            // 3. Combiner: Merges state sets if evaluated via parallel streams
             (state1, state2) -> {
                 state1.addAll(state2);
                 return state1;
             }
+           
+            // 4. Finisher: Nothing special to flush at the end for distinct checks
+           (state, downstream) -> {},
+           
         );
     }
 }
