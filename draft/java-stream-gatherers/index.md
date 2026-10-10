@@ -49,6 +49,20 @@ providing flexibility in transforming data within stream pipelines in ways that 
 
 ### 2. Getting Started: Built-In Gatherers in Action
 #### 2.1 Understanding Stream Cardinality
+Prior to the introduction of Java Stream Gatherers, every intermediate operation within the Stream API was governed by stringent "cardinality rules," which defined the mathematical relationship
+between the number of elements entering an operation and the number of elements exiting it.
+
+To elucidate the transformative impact of Stream Gatherers, let us examine how standard intermediate operations manage cardinality:
+
+- **1 to 1 (`map`)**: Each input element undergoes a transformation resulting in precisely one output element.
+  - _Example_: Converting a stream of strings to lowercase or uppercase, along with their respective lengths `stream.map(String::length)` or `stream.map(String::toUpperCase)`
+- **1 to 0 or 1 (`filter`)**: Each input element yields at most one output element (either it posses through or is discarded)
+  - _Example_: Retaining only even numbers `stream.filter(n -> n % 2 == 0)`
+- **1 to Many (`flatMap`)**: Each input element can generate zero, one, or multiple output elements, which are subsequently flattened into a continuous stream.
+   - _Example_:  Splitting a stream of sentences into individual words (`stream.flatMap(sentence -> Arrays.stream(sentence.split(" "))`).
+
+
+
 #### 2.2 The Five Ready-to-Use Gatherers
 ##### 2.2.1 Batching Items with `windowFixed`
 ##### 2.2.2 Analyzing Sequences with `windowSliding`
