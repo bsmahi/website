@@ -73,6 +73,7 @@ Most developers resort to using Nested Collectors, Map, Transform, or Overusing 
 Stream gatherers bridge this exact gap, enabling intermediate operations to maintain private state, buffer elements, and emit custom chunks of data down the pipeline—all while maintaining clean, lazy, and functionally pure streams.
 
 #### 2.2 The Five Ready-to-Use Gatherers
+ `java.util.stream.Gatherers` is a factory class introduced to provide standard, built-in implementations of custom intermediate operations for the **Java Stream API**
 ##### 2.2.1 Batching Items with `windowFixed`
 ##### 2.2.2 Analyzing Sequences with `windowSliding`
 ##### 2.2.3 Accumulating Values with `scan`
