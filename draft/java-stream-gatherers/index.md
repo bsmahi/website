@@ -1,4 +1,4 @@
-# Java Stream Gatherers: Unlocking the Missing Piece from Built-ins to Custom Pipelines
+# Demystifying Java Stream Gatherers 
 
 ## Table of Contents
 
