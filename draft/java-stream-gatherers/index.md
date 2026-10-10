@@ -27,6 +27,7 @@
   * [5.3 State Management & Thread Safety](#53-state-management--thread-safety)
   * [5.4 Gatherer vs. Collector: A Quick Comparison](#54-gatherer-vs-collector-a-quick-comparison)
 * [6. Conclusion](#6-conclusion)
+* [References](#references)
 
 ---
 
@@ -348,5 +349,6 @@ In essence, **Stream Gatherers** not only enhance convenience but also fulfill t
 
 #### References
 - https://openjdk.org/jeps/461
+- https://openjdk.org/jeps/485
 - https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Gatherer.html
 - https://docs.oracle.com/en/java/javase/25/core/stream-gatherers.html#GUID-FE89C89E-38F4-49A0-8663-3EEC1BB9DAA0
