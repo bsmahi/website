@@ -226,6 +226,8 @@ A Gatherer is an interface that comprises three parameters:
 #### 4.2 The Four Building Blocks (`initializer`, `integrator`, `combiner`, `finisher`,)
 The Gatherer is composed of four building blocks:
 
+![Stream Gatherer Blocks](JavaStreamGathererBlocks.png "Stream Gatherer Blocks")
+
 - initializer(): This block creates and returns a new state.
 - integrator(): This block integrates each input element into the state and pushes the results downstream.
 - combiner(): This block combines two states into one.
