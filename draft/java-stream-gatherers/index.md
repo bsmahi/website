@@ -249,6 +249,73 @@ We’ll be using the `Gatherer.of(…)` factory method. To create a custom gathe
 - **Combiner (BinaryOperator<A>)**: If the stream is being evaluated in parallel, this part will merge the state sets together.
 - **Finisher (BiConsumer<A, Downstream<R>>)**: This is an optional step. It’s there if you want to clear out any extra elements that were buffered up when the stream finished.
 
+```java
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Gatherer;
+
+public class HackerNewsGatherers {
+
+    // Custom distinctBy gatherer implementation
+    public static <T, K> Gatherer<T, ?, T> distinctBy(Function<? super T, ? extends K> keyExtractor) {
+        return Gatherer.of(
+            // 1. Initializer: Creates a private state set for each pipeline execution
+            HashSet::new,
+            
+            // 2. Integrator: Evaluates each incoming story element
+            (state, element, downstream) -> {
+                K key = keyExtractor.apply(element);
+                // If the key is newly added to our state set, push it downstream
+                if (state.add(key)) {
+                    downstream.push(element);
+                }
+                return true; // Keep consuming upstream elements (greedy evaluation)
+            },
+            
+            // 3. Finisher: Nothing special to flush at the end for distinct checks
+            (state, downstream) -> {},
+            
+            // 4. Combiner: Merges state sets if evaluated via parallel streams
+            (state1, state2) -> {
+                state1.addAll(state2);
+                return state1;
+            }
+        );
+    }
+}
+```
+**Step 3: Integrating the Custom DistinctBy Gatherer into a Stream Pipeline**
+Now, we can easily add our custom distinctBy gatherer to a stream pipeline to filter stories based on a particular attribute, like removing duplicate submissions from the same author.
+
+```java
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<HackerNewsStory> fetchedStories = List.of(
+            new HackerNewsStory(1, "Java 27 Released", “mahi”),
+            new HackerNewsStory(2, "Understanding Virtual Threads", “apj”),
+            new HackerNewsStory(3, "Deep Dive into JEP 485", “mahi”), // Duplicate author
+            new HackerNewsStory(4, "Building Modern CLI Apps", “kate”)
+        );
+
+        // Apply our custom distinctBy gatherer
+        List<HackerNewsStory> uniqueAuthorStories = fetchedStories.stream()
+            .gather(HackerNewsGatherers.distinctBy(HackerNewsStory::author))
+            .toList();
+
+        uniqueAuthorStories.forEach(story -> 
+            IO.println("Author: " + story.author() + " -> Title: " + story.title())
+        );
+        
+        // Output:
+        // Author: mahi -> Title: Java 27 Released
+        // Author: apj -> Title: Understanding Virtual Threads
+        // Author: kate -> Title: Building Modern CLI Apps
+    }
+}
+```
 
 ### 5. Production-Ready Gatherers: Parallelism, State, and Pitfalls
 #### 5.1 Parallel Execution Modes & Combiners
