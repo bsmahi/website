@@ -340,6 +340,11 @@ public class Main {
 
 ### 6. Conclusion
 
+Since the introduction of the Streams API in Java 8, many Java developers encountered architectural limitations with intermediate operations. However, terminal operations are extensible through the Collector. With the advent of Stream Gatherers, these limitations are addressed, enabling developers to create custom intermediate operations.
+
+In essence, **Stream Gatherers** not only enhance convenience but also fulfill the functional vision of the Java Stream API, making it fully extensible from inception to completion.
+
 #### References
 - https://openjdk.org/jeps/461
 - https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Gatherer.html
+- https://docs.oracle.com/en/java/javase/25/core/stream-gatherers.html#GUID-FE89C89E-38F4-49A0-8663-3EEC1BB9DAA0
