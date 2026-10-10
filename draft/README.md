@@ -13,14 +13,12 @@ To write in AsciiDoc instead, name the file `index.adoc` and start from
 `template/post.adoc`. The folder shape, the frontmatter and the checks are the
 same either way.
 
-Then open a pull request. A maintainer reviews it and moves the folder into
-`content/posts/<year>/<month>/<day>/your-article-slug/` to publish it.
-
-Publishing is **two** things, and the folder is only the visible half: set
-`date:` in the frontmatter to the same day. Hugo publishes off the `date:`, so a
-folder that says October over a frontmatter that still says August puts the
-article eight weeks back in the archive rather than at the top — the PR check
-catches that mismatch and tells you which one to change.
+Then open a pull request. **Leave `date:` as it is in the template** — don't
+pick a folder or a date yourself. A maintainer reviews the submission, sets
+`date:` and moves the folder into
+`content/posts/<year>/<month>/<day>/your-article-slug/` to match, so the two
+can never disagree. Only set a date yourself if you need the article out on a
+particular day; see `template/post.md` for how.
 
 Dating a post in the **future** schedules it: it is not built, listed or
 searchable until that day, and it shows up under "Coming soon" on the home page

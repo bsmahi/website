@@ -6,13 +6,23 @@
        background rather than the page background.
 
        Params: page (the sponsor Page), class (extra CSS class, optional),
-       pagefindImage (optional; tags this img as the page's Pagefind result
-       thumbnail -- only the profile page passes it, since the meta key is
-       taken by whichever element carries it first and the grids would
-       otherwise claim it). */ -}}
+       side (true in the sidebar widget), pagefindImage (optional; tags this
+       img as the page's Pagefind result thumbnail -- only the profile page
+       passes it, since the meta key is taken by whichever element carries it
+       first and the grids would otherwise claim it).
+
+       `sidebarLogo` is an OPTIONAL override of `logo`, used only when `side`
+       is set. A sponsor's main artwork is often a full lockup with a tagline
+       baked in (OCX's includes "Open Community Experience"; jChampions'
+       supporter badge carries a mascot) that reads fine at the ~84px the
+       profile card gives it but turns to mush at the sidebar's 42-60px --
+       `sidebarLogo` lets a sponsor supply a tighter crop for that one place
+       without replacing the logo everywhere else it appears. */ -}}
 {{- $p := .page -}}
+{{- $src := $p.Params.logo -}}
+{{- if and $.side $p.Params.sidebarLogo -}}{{ $src = $p.Params.sidebarLogo }}{{- end -}}
 <div class="sponsor-logo{{ with .class }} {{ . }}{{ end }}"{{ with $p.Params.logoBackground }} style="background-color: {{ . }}"{{ end }}>
-  {{- with $p.Params.logo -}}
+  {{- with $src -}}
   <img{{ if $.pagefindImage }} data-pagefind-meta="image[src]"{{ end }} src="{{ partial "resource-url.html" (dict "page" $p "src" .) }}" alt="{{ $p.Title }}" loading="lazy" decoding="async">
   {{- else -}}
   <span class="sponsor-logo__fallback">{{ substr $p.Title 0 1 }}</span>

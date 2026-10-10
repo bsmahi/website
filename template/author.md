@@ -26,7 +26,7 @@ title: "Your Name"
 #     feeds the page's structured data, which does not render SVG.
 #   - SOLID background. A transparent one lets the page show through the
 #     circle, and dark artwork on it vanishes in dark mode.
-#   - Nothing is resized at build time, so size it yourself. Over 4 MB fails
+#   - Nothing is resized at build time, so size it yourself. Over 2 MB fails
 #     the pull request check.
 #
 # avatar      Required. 192 x 192, under 30 KB. Author grid (350+ at once),

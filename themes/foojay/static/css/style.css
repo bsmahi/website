@@ -1301,8 +1301,12 @@ a.event-strip__title:hover { color: var(--brand-accent-strong); text-decoration:
 .sponsor-side { display: block; color: var(--ink-soft); }
 .sponsor-side:hover { color: var(--brand-accent-strong); }
 /* Width from the grid track, height per tier -- so gold still reads largest
-   while every tier gets the full column width to show its wordmark in. */
-.sponsor-logo--side { width: 100%; height: 46px; padding: .3rem; border-radius: 8px; }
+   while every tier gets the full column width to show its wordmark in.
+   Doubled class, not a single one: .sponsor-logo's own padding/border-radius
+   sit ~2000 lines below this and carry the same (0,1,0) specificity, so on
+   source order alone they would win and silently restore the 84px card's
+   .9rem padding here -- which is what was actually happening. */
+.sponsor-logo.sponsor-logo--side { width: 100%; height: 46px; padding: .15rem; border-radius: 8px; }
 .sponsor-side--gold   .sponsor-logo--side { height: 60px; }
 .sponsor-side--silver .sponsor-logo--side { height: 52px; }
 .sponsor-side--bronze .sponsor-logo--side { height: 46px; }

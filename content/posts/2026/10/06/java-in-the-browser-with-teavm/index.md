@@ -40,8 +40,7 @@ npm ci
 npm run dev
 ```
 
-If you already have a clone, start from its root folder
-and run the two npm commands. Open the local URL printed by Vite, then click
+If you already have a clone, start from its root folder and run the two npm commands. Open the local URL printed by Vite, then click
 **Compile Java** followed by **Run Java**.
 
 The Java program lists system properties and checks familiar environment variables such as `JAVA_HOME` and `OS`. It then reads the locale and time zone, counts primes below 10,000, and draws a tiny Mandelbrot set. Clicking **Compile Java** sends the source to the worker, which produces WebAssembly. Clicking **Run Java** executes the compiled program and sends its text output back to React.

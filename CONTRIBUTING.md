@@ -15,9 +15,11 @@ images, and delivering it (pull request, fork, or zip).
 ### In short
 
 - Posts are contributed via pull request (fork the repo if you don't have write access).
-- Each post is a folder under `content/posts/<year>/<month>/<day>/<your-slug>/`
-  with the text in `index.md` and its images in the same folder. Copy
-  `template/post.md` as your starting point.
+- Create your post in a folder under **`draft/<your-slug>/`** with the text in
+  `index.md` (or `index.adoc`) and its images in the same folder. Copy `template/post.md` (or `template/post.adoc`) as your
+  starting point. A maintainer moves the folder into
+  `content/posts/<year>/<month>/<day>/<your-slug>/` when it's published — you
+  never need to pick that path yourself unless you want the post to be published on a specific date. In that case, clearly specify the preferred date in your pull request.
 - **Markdown or AsciiDoc.** Name the file `index.adoc` and write AsciiDoc
   instead, starting from `template/post.adoc`. Everything else is the same —
   same folder shape, same frontmatter, same checks. Markdown is shorter for
@@ -26,12 +28,14 @@ images, and delivering it (pull request, fork, or zip).
   that span cells.
 - New author? Add yourself as `content/authors/<your-slug>/_index.md` in the same
   PR (note the underscore — see `template/author.md`).
-- `date:` is a plain day (`date: "2026-01-01"`), and it has to match the folder
-  the post is in. **Don't add a time**: the site is rebuilt once a day, at 07:00
-  UTC, so that is when articles go out and a time cannot make it earlier — only
-  later, by missing that build. A future date schedules the post (it stays
-  unbuilt and unlisted until then, and appears in "Coming soon" on the home
-  page); leave the date to a maintainer if you don't need a particular day.
+- **Leave `date:` as it is in the template.** A maintainer sets it and moves
+  your folder to match when the article is published. Only set it yourself if
+  you need the article out on a particular day: it's a plain day
+  (`date: "2026-01-01"`), with **no time** — the site is rebuilt once a day, at
+  07:00 UTC, so that is when articles go out and a time cannot make it earlier,
+  only later, by missing that build. A future date schedules the post (it
+  stays unbuilt and unlisted until then, and appears in "Coming soon" on the
+  home page).
 - You don't need to build anything: the PR check validates your frontmatter and
   builds the site, so it catches a bad author slug or a missing image for you.
 - If you *do* want to preview it, note that `draft/` is deliberately not built —

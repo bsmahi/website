@@ -36,7 +36,7 @@
       <div class="sponsor-tier__row">
         {{- range . }}
         <a class="sponsor-side sponsor-side--{{ .Params.tier | default "other" }}" href="{{ .RelPermalink }}" title="{{ .Title }}">
-          {{ partial "sponsor-logo.html" (dict "page" . "class" "sponsor-logo--side") }}
+          {{ partial "sponsor-logo.html" (dict "page" . "class" "sponsor-logo--side" "side" true) }}
         </a>
         {{- end }}
       </div>
@@ -52,7 +52,7 @@
       <div class="sponsor-tier__row">
         {{- range . }}
         <a class="sponsor-side sponsor-side--other" href="{{ .RelPermalink }}" title="{{ .Title }}">
-          {{ partial "sponsor-logo.html" (dict "page" . "class" "sponsor-logo--side") }}
+          {{ partial "sponsor-logo.html" (dict "page" . "class" "sponsor-logo--side" "side" true) }}
         </a>
         {{- end }}
       </div>

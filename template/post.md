@@ -68,7 +68,7 @@ authors:
 #     text, logos, faces -- away from the edges.
 #   - 1600 px wide is for the social preview, which wants at least 1200. The
 #     site itself never needs more, so bigger only costs your readers time.
-#     Anything over 4 MB fails the pull request check.
+#     Anything over 2 MB fails the pull request check.
 #   - JPEG for photos and screenshots. PNG only for hard-edged line art that
 #     JPEG makes look fuzzy. Not SVG: social platforms will not render one, so
 #     your post would preview with the generic Foojay card instead of your
