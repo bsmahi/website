@@ -217,6 +217,12 @@ Semantically, `source.gather(one).gather(two).gather(three).collect(…)` is equ
 
 ### 4. Under the Hood: Architecture & Anatomy of Custom Gatherers
 #### 4.1 Anatomy of a `Gatherer<T, A, R>`
+A Gatherer is an interface that comprises three parameters:
+
+- **T**: Input type elements
+- **A**: The potentially mutable state type of the gatherer collection
+- **R**: The type of output elements produced by the gatherer operation
+  
 #### 4.2 The Four Building Blocks (`initializer`, `integrator`, `finisher`, `combiner`)
 #### 4.3 Concrete Walkthrough: Building a Custom Gatherer
 
