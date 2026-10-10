@@ -310,10 +310,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<HackerNewsStory> fetchedStories = List.of(
-            new HackerNewsStory(1, "Java 27 Released", “mahi”),
-            new HackerNewsStory(2, "Understanding Virtual Threads", “apj”),
-            new HackerNewsStory(3, "Deep Dive into JEP 485", “mahi”), // Duplicate author
-            new HackerNewsStory(4, "Building Modern CLI Apps", “kate”)
+            new HackerNewsStory(1, "Java 27 Released", "mahi"),
+            new HackerNewsStory(2, "Understanding Virtual Threads", "apj"),
+            new HackerNewsStory(3, "Deep Dive into JEP 485", "mahi"), // Duplicate author
+            new HackerNewsStory(4, "Building Modern CLI Apps", "kate")
         );
 
         // Apply our custom distinctBy gatherer
