@@ -71,10 +71,10 @@ To elucidate the transformative impact of Stream Gatherers, let us examine how s
 
 - **1 to 1 (`map`)**: Each input element undergoes a transformation resulting in precisely one output element.
   - _Example_: Converting a stream of strings to lowercase or uppercase, along with their respective lengths `stream.map(String::length)` or `stream.map(String::toUpperCase)`
-- **1 to 0 or 1 (`filter`)**: Each input element yields at most one output element (either it posses through or is discarded)
+- **1 to 0 or 1 (`filter`)**: Each input element yields at most one output element (either it passes through or is discarded)
   - _Example_: Retaining only even numbers `stream.filter(n -> n % 2 == 0)`
 - **1 to Many (`flatMap`)**: Each input element can generate zero, one, or multiple output elements, which are subsequently flattened into a continuous stream.
-   - _Example_:  Splitting a stream of sentences into individual words (`stream.flatMap(sentence -> Arrays.stream(sentence.split(" "))`).
+   - _Example_:  Splitting a stream of sentences into individual words (`stream.flatMap(sentence -> Arrays.stream(sentence.split(" ")))`).
 
 While most of the built-in intermediate operations cover a predominantly majority of day-to-day data transformations, they come with a significant limitation: they are stateless and operate independently on each element. When our business logic requires many-to-many relationships or stateful grouping across multiple elements, such as:
 
