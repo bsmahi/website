@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-20T06:08:48Z",
+  "generatedAt" : "2026-10-21T06:08:31Z",
   "source" : "iCal feeds published by the JUGs themselves (data/jugs.yaml `calendar`) and Meetup's iCal export for the groups that use it; venues from the feed's LOCATION or the schema.org JSON-LD on the event page -- see scripts/fetch/JugEvents.java",
   "groups" : [ {
     "slug" : "almaty-java-user-group",
@@ -97,14 +97,6 @@
     "source" : "meetup",
     "url" : "https://www.meetup.com/atlantajug/",
     "events" : [ {
-      "title" : "Building a 4,000-Component Monorepo: How Spotify Uses AI to Scale Backend Dev",
-      "url" : "https://www.meetup.com/atlantajug/events/316037276/",
-      "startTime" : "2026-10-20T18:30:00-04:00",
-      "endTime" : "2026-10-20T20:30:00-04:00",
-      "venue" : "Roam",
-      "city" : "Atlanta",
-      "online" : false
-    }, {
       "title" : "Knowns and Unknowns: Testing AI-Generated Code",
       "url" : "https://www.meetup.com/atlantajug/events/316430418/",
       "startTime" : "2026-11-17T18:30:00-05:00",
@@ -134,6 +126,14 @@
       "endTime" : "2026-10-21T20:45:00+02:00",
       "venue" : "Cegeka Leuven, Belgium",
       "city" : "Leuven",
+      "online" : false
+    }, {
+      "title" : "Open Space with Kotlin User Group",
+      "url" : "https://www.meetup.com/belgian-java-user-group/events/317062424/",
+      "startTime" : "2026-10-27T18:30:00+01:00",
+      "endTime" : "2026-10-27T21:30:00+01:00",
+      "venue" : "Da Vincilaan 11",
+      "city" : "Zaventem",
       "online" : false
     } ]
   }, {
@@ -313,6 +313,14 @@
       "city" : "Berlin",
       "online" : false
     }, {
+      "title" : "JUG BB: Pre-SAG Special @ JetBrains with Chris Richardson",
+      "url" : "https://www.meetup.com/jug-bb/events/317058007/",
+      "startTime" : "2026-11-16T18:30:00+01:00",
+      "endTime" : "2026-11-16T22:00:00+01:00",
+      "venue" : "JetBrains GmbH",
+      "city" : "Berlin",
+      "online" : false
+    }, {
       "title" : "Monatlicher Stammtisch der JUG Berlin-Brandenburg",
       "url" : "https://www.meetup.com/jug-bb/events/316084512/",
       "startTime" : "2026-12-01T18:30:00+01:00",
@@ -373,14 +381,6 @@
       "url" : "https://www.meetup.com/jug-bb/events/kvnqltykckbjb/",
       "startTime" : "2027-07-06T18:30:00+02:00",
       "endTime" : "2027-07-06T21:00:00+02:00",
-      "venue" : "Da Vinci",
-      "city" : "Berlin",
-      "online" : false
-    }, {
-      "title" : "Monatlicher Stammtisch der JUG Berlin-Brandenburg",
-      "url" : "https://www.meetup.com/jug-bb/events/kvnqltykclbfb/",
-      "startTime" : "2027-08-03T18:30:00+02:00",
-      "endTime" : "2027-08-03T21:00:00+02:00",
       "venue" : "Da Vinci",
       "city" : "Berlin",
       "online" : false
@@ -710,7 +710,15 @@
     "jug" : "MuenchenJUG",
     "source" : "meetup",
     "url" : "https://www.meetup.com/Java-User-Group-Munchen-JUGM/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "Technical documentation in the times of AI Agents: is it still needed?",
+      "url" : "https://www.meetup.com/java-user-group-munchen-jugm/events/317060711/",
+      "startTime" : "2026-11-02T19:00:00+01:00",
+      "endTime" : "2026-11-02T21:00:00+01:00",
+      "venue" : "Eden Hotel Wolff",
+      "city" : "München",
+      "online" : false
+    } ]
   }, {
     "slug" : "java-usergroup-munster",
     "name" : "Java Usergroup Münster",
@@ -750,8 +758,8 @@
     "events" : [ {
       "title" : "From Design to Spec to Code: Building a Real UI With AI Agents",
       "url" : "https://www.meetup.com/jug-oberpfalz/events/317037083/",
-      "startTime" : "2026-10-22T20:00:00+02:00",
-      "endTime" : "2026-10-22T22:00:00+02:00",
+      "startTime" : "2026-10-22T20:30:00+02:00",
+      "endTime" : "2026-10-22T22:30:00+02:00",
       "venue" : null,
       "city" : null,
       "online" : true
@@ -893,7 +901,15 @@
     "jug" : "JUGNoord",
     "source" : "meetup",
     "url" : "https://www.meetup.com/jug-noord/",
-    "events" : [ ]
+    "events" : [ {
+      "title" : "November 2026: Kotlin-Powered Spring Boot and the Security of LLMs",
+      "url" : "https://www.meetup.com/jug-noord/events/317057241/",
+      "startTime" : "2026-11-10T17:00:00+01:00",
+      "endTime" : "2026-11-10T20:00:00+01:00",
+      "venue" : "Dienst Uitvoering Onderwijs (DUO)-IB-Groep",
+      "city" : "Groningen",
+      "online" : false
+    } ]
   }, {
     "slug" : "KnoxJava",
     "name" : "KnoxJava",
