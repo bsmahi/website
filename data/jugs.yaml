@@ -2456,8 +2456,8 @@
 - slug: VirtualJUG
   name: Virtual Java User Group
   country: Worldwide
-  website: http://virtualjug.com/
-  twitter: virtualjug
+  website: https://luma.com/vjug
+  calendar: https://api.lu.ma/ics/get?entity=calendar&id=cal-mYJ3uJ77ppH1sdR
   founded_date: '2013-08-01'
   latitude: 51.5287718
   longitude: -0.2416789
